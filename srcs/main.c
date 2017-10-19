@@ -6,11 +6,17 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/19 09:33:24 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/10/19 09:56:43 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/10/19 18:27:49 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "21sh.h"
+
+static int ptchr(int c)
+{
+	write(1,&c, 1);
+	return (0);
+}
 
 static int reset_terminal(struct termios *term)
 {
@@ -43,6 +49,8 @@ int		main(int argc, char **argv)
 	struct termios		term;
 	char				*term_name;
 	char				buff[4];
+	char				*area;
+	int					i;
 
 	(void)argc;
 	(void)argv;
@@ -52,6 +60,11 @@ int		main(int argc, char **argv)
 		reset_terminal(&term);
 		return (ft_fprintf(2, "Error: can't get term infos\n"));
 	}
+	ft_printf("term nb cols: %d   nb lines: %d\n", tgetnum("co"), tgetnum("li"));
+	area = (char *)&term;
+	i = 0;
+	while (i < (int)sizeof(struct termios))
+		ft_printf("[%c] ", area[i++]);
 	while (1)
 	{
 		ft_bzero(buff, 4);
@@ -60,10 +73,14 @@ int		main(int argc, char **argv)
 		if (*buff == 4)
 		{
 			reset_terminal(&term);
-			return (0);
+			break ;
+		}
+		else if (*buff == 12)
+		{
+			tputs(tgetstr("cl", 0), 1, ptchr);
 		}
 	}
-	ft_printf("all good\n");
+	ft_printf("all good %d\n", (int)key_get(0));
 	return (0);
 }
 

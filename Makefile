@@ -6,7 +6,7 @@
 #    By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/03/04 14:32:18 by cbarbier          #+#    #+#              #
-#    Updated: 2017/10/19 09:33:06 by cbarbier         ###   ########.fr        #
+#    Updated: 2017/10/19 18:27:17 by cbarbier         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,8 @@ TERMCAP			= -ltermcap
 CC				= gcc
 CFLAGS			= -Wall -Wextra -Werror
 HDR				= includes/21sh.h
-SRCS 			= srcs/main.c
+SRCS 			= srcs/main.c \
+				  srcs/key_dump.c
 
 OBJS			= $(SRCS:.c=.o)
 
