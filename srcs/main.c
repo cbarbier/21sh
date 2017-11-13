@@ -26,6 +26,7 @@ static int reset_terminal(struct termios *term)
 	term->c_lflag = (ICANON | ECHO);
 	if (tcgetattr(0, term) == -1)
 		return (-1);
+	tputs(tgetstr("ei", 0), 1, myput); 
 	return (0);
 }
 
@@ -42,6 +43,7 @@ static int	init_termcaps(struct termios *term, char *term_name)
 	term->c_cc[VTIME] = 0;
 	if (tcsetattr(0, TCSADRAIN, term) == -1)
 		return (-1);
+	tputs(tgetstr("im", 0), 1, myput); 
 	return (0);
 }
 
@@ -51,8 +53,6 @@ int		main(int argc, char **argv)
 	char				*term_name;
 	char				buff[7];
 	int					ttyfd;
-	char				*res;
-	char				*area;
 
 	ft_printf("%s\n", argv[argc - 1]);
 	if (!(ttyfd = open(argv[argc - 1], O_WRONLY, O_NONBLOCK)))
@@ -76,8 +76,14 @@ int		main(int argc, char **argv)
 			reset_terminal(&term);
 			return (0);
 		}
-		res = tgetstr("nd", &area);
-		tputs(tgoto(res, 0, 1), 1, myput); 
+		if ((int)buff[2] == 0x43)
+			tputs(tgetstr("nd", 0), 1, myput); 
+		else if ((int)buff[2] == 0x44)
+			tputs(tgetstr("le", 0), 1, myput); 
+		else if ((int)buff[2] == 0x41)
+			tputs(tgetstr("up", 0), 1, myput); 
+		else if ((int)buff[2] == 0x42)
+			tputs(tgetstr("do", 0), 1, myput); 
 	}
 	ft_printf("all good\n");
 	return (0);
