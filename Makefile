@@ -6,7 +6,7 @@
 #    By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/03/04 14:32:18 by cbarbier          #+#    #+#              #
-#    Updated: 2017/10/19 09:33:06 by cbarbier         ###   ########.fr        #
+#    Updated: 2017/11/13 14:16:13 by cbarbier         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME			= 21sh
 LIB				= libft/libft.a
 TERMCAP			= -ltermcap
 CC				= gcc
-CFLAGS			= -Wall -Wextra -Werror
+CFLAGS			= -Wall -Wextra -Werror -g
 HDR				= includes/21sh.h
 SRCS 			= srcs/main.c
 

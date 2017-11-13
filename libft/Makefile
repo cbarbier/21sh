@@ -12,7 +12,7 @@
 
 NAME	= libft.a
 
-CFLAGS	= -Wall -Wextra -Werror
+CFLAGS	= -Wall -Wextra -Werror -g
 
 INC 	= libft.h \
 		  ft_lst.h \
