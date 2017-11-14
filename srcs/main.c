@@ -6,12 +6,22 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/19 09:33:24 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/11/13 19:13:18 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/11/14 16:16:30 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "21sh.h"
 #include <errno.h>
+
+static int	put_tc(int ttyfd,char *cap)
+{
+	char buff[7];
+
+	ft_bzero(buff, 7);
+	ft_strcat(buff, tgetstr(cap, 0));
+		ft_fprintf(ttyfd, "capibility \"%s\" [%x][%x][%x][%x][%x][%x]\n", cap, (int)buff[0], (int)buff[1], (int)buff[2], (int)buff[3], (int)buff[4], (int)buff[5]);
+		return (0);
+}
 
 static int	myput(int c)
 {
@@ -50,20 +60,22 @@ static int	init_termcaps(struct termios *term, char *term_name)
 int		main(int argc, char **argv)
 {
 	struct termios		term;
-	char				*term_name;
+	char				*term_buff;
 	char				buff[7];
 	int					ttyfd;
 
 	ft_printf("%s\n", argv[argc - 1]);
-	if (!(ttyfd = open(argv[argc - 1], O_WRONLY, O_NONBLOCK)))
+	if (!(ttyfd = open(argv[argc - 1], O_WRONLY | O_NONBLOCK)))
 		return (ft_fprintf(ttyfd, "Error: can't open tty\n"));
 	ft_fprintf(ttyfd, "### WELCOME 21SH ###\n");
-	term_name = 0;
-	if (init_termcaps(&term, term_name))
+	term_buff = 0;
+	if (init_termcaps(&term, term_buff))
 	{
 		reset_terminal(&term);
 		return (ft_fprintf(2, "Error: can't get term infos\n"));
 	}
+	ft_fprintf(ttyfd, "term nb cols: %d   nb lines: %d\n", tgetnum("co"), tgetnum("li"));
+	put_tc(ttyfd, "kh");
 	ft_printf("test_cursor_moving\n");
 	while (1)
 	{
@@ -83,7 +95,7 @@ int		main(int argc, char **argv)
 		else if ((int)buff[2] == 0x41)
 			tputs(tgetstr("up", 0), 1, myput); 
 		else if ((int)buff[2] == 0x42)
-			tputs(tgetstr("do", 0), 1, myput); 
+			tputs(tgoto(tgetstr("DO", &term_buff), 1, 0), 1, myput); 
 	}
 	ft_printf("all good\n");
 	return (0);
