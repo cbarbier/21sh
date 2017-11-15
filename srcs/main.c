@@ -6,13 +6,16 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/19 09:33:24 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/11/14 16:16:30 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/11/15 17:30:26 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "21sh.h"
 #include <errno.h>
-
+typedef struct s_cursor {
+	int x;
+	int y;
+} t_cursor;
 static int	put_tc(int ttyfd,char *cap)
 {
 	char buff[7];
@@ -54,6 +57,7 @@ static int	init_termcaps(struct termios *term, char *term_name)
 	if (tcsetattr(0, TCSADRAIN, term) == -1)
 		return (-1);
 	tputs(tgetstr("im", 0), 1, myput); 
+	tputs(tgetstr("ip", 0), 1, myput); 
 	return (0);
 }
 
@@ -63,7 +67,10 @@ int		main(int argc, char **argv)
 	char				*term_buff;
 	char				buff[7];
 	int					ttyfd;
+	t_cursor			curs;
 
+	curs.x = 0;
+	curs.y = 0;
 	ft_printf("%s\n", argv[argc - 1]);
 	if (!(ttyfd = open(argv[argc - 1], O_WRONLY | O_NONBLOCK)))
 		return (ft_fprintf(ttyfd, "Error: can't open tty\n"));
@@ -88,7 +95,14 @@ int		main(int argc, char **argv)
 			reset_terminal(&term);
 			return (0);
 		}
-		if ((int)buff[2] == 0x43)
+		if (!buff[1] && (int)buff[0] > 32 && (int)buff[0] < 127)
+		{
+			if ((int)buff[0] == 0x68)
+				tputs(tgetstr("cr", 0), 1, myput);
+			else
+				myput(buff[0]);
+		}
+		else if ((int)buff[2] == 0x43)
 			tputs(tgetstr("nd", 0), 1, myput); 
 		else if ((int)buff[2] == 0x44)
 			tputs(tgetstr("le", 0), 1, myput); 
