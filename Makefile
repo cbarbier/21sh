@@ -6,7 +6,7 @@
 #    By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/03/04 14:32:18 by cbarbier          #+#    #+#              #
-#    Updated: 2017/10/19 18:27:17 by cbarbier         ###   ########.fr        #
+#    Updated: 2017/11/21 17:54:02 by cbarbier         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,10 +14,34 @@ NAME			= 21sh
 LIB				= libft/libft.a
 TERMCAP			= -ltermcap
 CC				= gcc
-CFLAGS			= -Wall -Wextra -Werror
+CFLAGS			= -Wall -Wextra -Werror -g
 HDR				= includes/21sh.h
 SRCS 			= srcs/main.c \
-				  srcs/key_dump.c
+ 				  srcs/core_21sh.c \
+ 				  srcs/init_21sh.c \
+ 				  srcs/fr33.c \
+ 				  srcs/line_edit/init_term.c \
+ 				  srcs/line_edit/key_is1.c \
+ 				  srcs/line_edit/key_is2.c \
+ 				  srcs/line_edit/key_is3.c \
+ 				  srcs/line_edit/key_is4.c \
+				  srcs/line_edit/key_dump.c \
+				  srcs/line_edit/ctrl_d_handler.c \
+				  srcs/line_edit/ctrl_r_handler.c \
+				  srcs/line_edit/cursor_left.c \
+				  srcs/line_edit/cursor_right.c \
+				  srcs/line_edit/del_char.c \
+				  srcs/line_edit/go_end.c \
+				  srcs/line_edit/go_home.c \
+				  srcs/line_edit/go_last_line.c \
+				  srcs/line_edit/go_last_word.c \
+				  srcs/line_edit/go_next_line.c \
+				  srcs/line_edit/go_next_word.c \
+				  srcs/line_edit/history_back.c \
+				  srcs/line_edit/history_next.c \
+				  srcs/line_edit/ins_char.c \
+				  srcs/line_edit/ret_handler.c \
+				  srcs/line_edit/tab_handler.c
 
 OBJS			= $(SRCS:.c=.o)
 

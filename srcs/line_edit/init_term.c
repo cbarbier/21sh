@@ -1,42 +1,43 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   init_term.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/19 09:33:24 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/11/21 18:31:46 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/11/21 16:40:58 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "21sh.h"
 
-static int	put_tc(int ttyfd,char *cap)
+int			 reset_terminal(t_21sh *e)
 {
-	char buff[7];
-
-	ft_bzero(buff, 7);
-	ft_strcat(buff, tgetstr(cap, 0));
-		ft_fprintf(ttyfd, "capibility \"%s\" [%x][%x][%x][%x][%x][%x]\n", cap, (int)buff[0], (int)buff[1], (int)buff[2], (int)buff[3], (int)buff[4], (int)buff[5]);
-		return (0);
-}
-
-int			myput(int c)
-{
-	write(1, &c, 1);
+	if (tcgetattr(0, &e->term) == -1)
+		return (-1);
+	e->term.c_lflag = (ICANON | ECHO);
+	if (tcgetattr(0, &e->term) == -1)
+		return (-1);
+	tputs(tgetstr("ei", 0), 1, myput); 
 	return (0);
 }
 
-int		main(int argc, char **argv)
+int			init_termcaps(t_21sh *e)
 {
-	t_21sh				e;
+	char			*term_name;
 
-	if (init_21sh(&e, argc, argv))
-		return (exit_21sh(&e));
-	put_tc(e.ttyfd, "ku");
-	ft_fprintf(e.ttyfd, "test\n");
-	ft_printf("$prompt>");
-	core_21sh(&e);
+	if (!(term_name = getenv("TERM")))
+		return (-1);
+	if (tgetent(0, term_name) == ERR)
+		return (-1);
+	if (tcgetattr(0, &e->term) == -1)
+		return (-1);
+	e->term.c_lflag &= ~(ICANON | ECHO);
+	e->term.c_cc[VMIN] = 1;
+	e->term.c_cc[VTIME] = 0;
+	if (tcsetattr(0, TCSADRAIN, &e->term) == -1)
+		return (-1);
+	tputs(tgetstr("im", 0), 1, myput); 
 	return (0);
 }

@@ -1,59 +1,48 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   key_is1.c                                          :+:      :+:    :+:   */
+/*   key_is4.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/20 11:03:54 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/11/14 15:57:06 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/11/21 18:45:24 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "21sh.h"
 
-int			key_is_crtl_d(char *buff)
+int			key_is_alt_left(char *buff)
 {
-	char const *ret = "\x4\0\0\0\0\0";
+	static char		*ret = "\x1b\x1b\x5b\x44\0\0";
 
 	if (!ft_memcmp(ret, buff, MAX_KEY_STRING_LENGTH))
 		return (TRUE);
 	return (FALSE);
 }
 
-int			key_is_crtl_r(char *buff)
+int			key_is_alt_right(char *buff)
 {
-	char const *ret = "\x0C\0\0\0\0\0";
+	static char		*ret = "\x1b\x1b\x5b\x43\0\0";
 
 	if (!ft_memcmp(ret, buff, MAX_KEY_STRING_LENGTH))
 		return (TRUE);
 	return (FALSE);
 }
 
-int			key_is_ret(char *buff)
+int			key_is_alt_up(char *buff)
 {
-	char const *ret = "\x0a\0\0\0\0\0";
+	static char		*ret = "\x1b\x1b\x5b\x41\0\0";
 
 	if (!ft_memcmp(ret, buff, MAX_KEY_STRING_LENGTH))
 		return (TRUE);
 	return (FALSE);
 }
 
-int			key_is_tab(char *buff)
+int			key_is_alt_down(char *buff)
 {
-	char const *ret = "\x09\0\0\0\0\0";
+	static char		*ret = "\x1b\x1b\x5b\x42\0\0";
 
-	if (!ft_memcmp(ret, buff, MAX_KEY_STRING_LENGTH))
-		return (TRUE);
-	return (FALSE);
-}
-
-int			key_is_home(char *buff)
-{
-	static char		*ret = 0;
-
-	if (!ret)
-		ret = tgetstr("kh", 0);
 	if (!ft_memcmp(ret, buff, MAX_KEY_STRING_LENGTH))
 		return (TRUE);
 	return (FALSE);

@@ -6,49 +6,55 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/19 09:33:24 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/11/21 11:27:10 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/11/21 17:49:29 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "21sh.h"
 
-static int	get_cursor_xy(t_cursor *curs)
+static int	get_cursor_xy(t_21sh *e, t_cursor *curs)
 {
 	int		i;
+	int		ret;
 	char	buff[20];
 
 	write(1, "\033[6n", 4);
 	read(0, buff, 2);
 	i = 0;
 	ft_bzero(buff, 20);
-	while (read(0, buff + i, 1) > 0 && buff[i] != ';')
-		i++;
-	curs->x = ft_atoi(buff);
-	i = 0;
-	ft_bzero(buff, 20);
-	while (read(0, buff + i, 1) > 0 && buff[i] != 'R')
-		i++;
-	curs->y = ft_atoi(buff);
+	if ((ret = read(0, buff, 20)) <= 0)
+		return (1);
+	while (i < ret && buff[i] != ';')
+	{
+		curs->x = 10 * curs->x + (int)buff[i] - '0';
+		ft_fprintf(e->ttyfd, "[%x]", (int)buff[i++]);
+	}
+	ft_fprintf(e->ttyfd, "\n");
+	while (++i < ret && buff[i] != 'R')
+	{
+		curs->y = 10 * curs->y + (int)buff[i] - '0';
+		ft_fprintf(e->ttyfd, "[%x]", (int)buff[i]);
+	}
+	ft_fprintf(e->ttyfd, "\n");
+	ft_fprintf(e->ttyfd, "cursor x[%d] y[%d]\n", curs->x, curs->y); 
 	return (0);
 }
 
 int		init_21sh(t_21sh *e, int argc, char **argv)
 {
-	struct termios		term;
-	char				*term_buff;
-	char				buff[7];
-
-	ft_bzero (e, sizeof(t_21sh));
+	ft_bzero(e, sizeof(t_21sh));
+	e->run = 1;
+	ft_strcpy(e->prpt, "$prompt>");
 	if (!(e->ttyfd = open(argv[argc - 1], O_WRONLY | O_NONBLOCK)))
 		return (ft_fprintf(2, "Error: can't open tty\n"));
-	if (init_termcaps(&term, term_buff))
+	if (init_termcaps(e))
 	{
-		reset_terminal(&term);
+		reset_terminal(e);
 		return (ft_fprintf(2, "Error: can't get term infos\n"));
 	}
-	if (!get_cursor_xy(&e->curs))
+	if (get_cursor_xy(e, &e->curs))
 		return (ft_fprintf(2, "Error: can't get cursor\n"));
 	ft_fprintf(e->ttyfd, "### WELCOME 21SH ###\n");
-	ft_fprintf(ttyfd, "term nb cols: %d   nb lines: %d\n", tgetnum("co"), tgetnum("li"));
+	ft_fprintf(e->ttyfd, "term nb cols: %d   nb lines: %d\n", tgetnum("co"), tgetnum("li"));
 	return (0);
 }
