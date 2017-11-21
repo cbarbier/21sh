@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/19 17:33:55 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/10/20 10:31:20 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/11/14 14:42:37 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int				key_get(char *buff)
 	static t_kcheck		ftab[] = {
 		{0,					0},
 		{KEY_CODE_CTRL_D,	&key_is_ctrl_d},
-		{KEY_CODE_CTRL_R,	&key_is_ctrl_r}
+		{KEY_CODE_CTRL_R,	&key_is_ctrl_r},
 		{KEY_CODE_TAB,		&key_is_tab},
 		{KEY_CODE_HOME,		&key_is_home},
 		{KEY_CODE_END,		&key_is_end},
@@ -28,7 +28,7 @@ int				key_get(char *buff)
 		{KEY_CODE_LEFT,		&key_is_left},
 		{KEY_CODE_RIGHT,	&key_is_right},
 		{KEY_CODE_RET,		&key_is_ret},
-		{KEY_CODE_NONE,		0},
+		{KEY_CODE_NONE,		0}
 	};
 	i = -1;
 	while (ftab[++i].f)

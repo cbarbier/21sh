@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/06 14:12:45 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/10/20 11:03:25 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/11/21 10:51:31 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,23 +18,24 @@
 # include <term.h>
 # include <termios.h>
 # include <math.h>
-# define TRUE			1
-# define FALSE			0
-# define DEBUG			1
+# define TRUE					1
+# define FALSE					0
+# define DEBUG					1
 # define MAX_KEY_STRING_LENGTH	6
-# define KEY_CODE_OTHER		-1
-# define KEY_CODE_NONE		0
-# define KEY_CODE_CTRL_D 	1
-# define KEY_CODE_CTRL_R	2
-# define KEY_CODE_TAB		3
-# define KEY_CODE_HOME		4
-# define KEY_CODE_END		5
-# define KEY_CODE_PUP		6
-# define KEY_CODE_PDOWN		7
-# define KEY_CODE_UP		8
-# define KEY_CODE_DOWN		9
-# define KEY_CODE_LEFT		10
-# define KEY_CODE_RIGHT		11
+# define KEY_CODE_OTHER			-1
+# define KEY_CODE_NONE			0
+# define KEY_CODE_CTRL_D		1
+# define KEY_CODE_CTRL_R		2
+# define KEY_CODE_TAB			3
+# define KEY_CODE_HOME			4
+# define KEY_CODE_END			5
+# define KEY_CODE_PUP			6
+# define KEY_CODE_PDOWN			7
+# define KEY_CODE_UP			8
+# define KEY_CODE_DOWN			9
+# define KEY_CODE_LEFT			10
+# define KEY_CODE_RIGHT			11
+# define KEY_CODE_RET			12
 typedef struct	s_kcheck
 {
 	int			k;
@@ -42,6 +43,12 @@ typedef struct	s_kcheck
 }				t_kcheck;
 typedef struct	s_21sh
 {
+	struct termios	term_dflt;
+	struct termios	term;
+	char[9]		prpt;
+	t_list		*line;
+	int			ttyfd;
+	t_cursor	curs;
 }				t_21sh;
 int			key_get(char *buff);
 /*
@@ -50,6 +57,7 @@ int			key_get(char *buff);
 /*
 ** 	KEY FUNCTIONS
 */
+int				key_is_ret(char *buff);
 int				key_is_ctrl_d(char *buff);
 int				key_is_ctrl_r(char *buff);
 int				key_is_tab(char *buff);
