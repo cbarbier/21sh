@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/19 09:33:24 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/11/21 17:49:29 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/11/27 18:16:42 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,18 +25,13 @@ static int	get_cursor_xy(t_21sh *e, t_cursor *curs)
 	if ((ret = read(0, buff, 20)) <= 0)
 		return (1);
 	while (i < ret && buff[i] != ';')
-	{
-		curs->x = 10 * curs->x + (int)buff[i] - '0';
-		ft_fprintf(e->ttyfd, "[%x]", (int)buff[i++]);
-	}
-	ft_fprintf(e->ttyfd, "\n");
-	while (++i < ret && buff[i] != 'R')
-	{
-		curs->y = 10 * curs->y + (int)buff[i] - '0';
-		ft_fprintf(e->ttyfd, "[%x]", (int)buff[i]);
-	}
-	ft_fprintf(e->ttyfd, "\n");
+		curs->y = 10 * curs->y + (int)buff[i++] - '0';
 	ft_fprintf(e->ttyfd, "cursor x[%d] y[%d]\n", curs->x, curs->y); 
+	while (++i < ret && buff[i] != 'R')
+		curs->x = 10 * curs->x + (int)buff[i] - '0';
+	ft_fprintf(e->ttyfd, "cursor x[%d] y[%d]\n", curs->x, curs->y); 
+	curs->sx = curs->x;
+	curs->sy = curs->y;
 	return (0);
 }
 
@@ -44,7 +39,7 @@ int		init_21sh(t_21sh *e, int argc, char **argv)
 {
 	ft_bzero(e, sizeof(t_21sh));
 	e->run = 1;
-	ft_strcpy(e->prpt, "$prompt>");
+	ft_strcpy(e->prmpt, "$prompt>");
 	if (!(e->ttyfd = open(argv[argc - 1], O_WRONLY | O_NONBLOCK)))
 		return (ft_fprintf(2, "Error: can't open tty\n"));
 	if (init_termcaps(e))
@@ -55,6 +50,10 @@ int		init_21sh(t_21sh *e, int argc, char **argv)
 	if (get_cursor_xy(e, &e->curs))
 		return (ft_fprintf(2, "Error: can't get cursor\n"));
 	ft_fprintf(e->ttyfd, "### WELCOME 21SH ###\n");
-	ft_fprintf(e->ttyfd, "term nb cols: %d   nb lines: %d\n", tgetnum("co"), tgetnum("li"));
+	e->co = tgetnum("co");
+	e->li = tgetnum("li");
+	ft_fprintf(e->ttyfd, "term nb cols: %d   nb lines: %d\n", e->co, e->li);
+	e->curs.x += ft_strlen(e->prmpt);
+	ft_printf("%s", e->prmpt);
 	return (0);
 }

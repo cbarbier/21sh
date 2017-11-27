@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/06 14:12:45 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/11/21 18:41:04 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/11/27 18:16:31 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include <termcap.h>
 # include <term.h>
 # include <termios.h>
+# include <signal.h>	  
 # include <math.h>
 # define TRUE					1
 # define FALSE					0
@@ -41,6 +42,8 @@
 # define KEY_CODE_NONE			16
 typedef struct	s_cursor
 {
+	int		sx;
+	int		sy;
 	int		x;
 	int		y;
 }				t_cursor;
@@ -54,13 +57,17 @@ typedef struct	s_key_func
 typedef struct	s_21sh
 {
 	struct termios	term;
-	char		prpt[9];
-	char		buff[MAX_KEY_STRING_LENGTH + 1];
-	t_list		*line;
-	int			ttyfd;
-	t_cursor	curs;
-	int			run;
-}				t_21sh;
+	char			prmpt[9];
+	char			buff[MAX_KEY_STRING_LENGTH + 1];
+	t_list			*line;
+	int				len;
+	int				ttyfd;
+	t_cursor		curs;
+	int				run;
+	int				co;
+	int				li;
+	int				ln;
+}					t_21sh;
 /*
 ** 	INIT FUNCTIONS
 */
@@ -79,6 +86,7 @@ int				exit_21sh(t_21sh *e);
 /*
 ** 	EDIT LINE FUNCTIONS
 */
+int				print_line(char *line, int i, int len);
 int				curs_right(t_21sh *e);
 int				curs_left(t_21sh *e);
 int				del_char(t_21sh *e);

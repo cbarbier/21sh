@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/19 09:33:24 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/11/21 18:31:46 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/11/22 09:42:41 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,6 @@ int		main(int argc, char **argv)
 	if (init_21sh(&e, argc, argv))
 		return (exit_21sh(&e));
 	put_tc(e.ttyfd, "ku");
-	ft_fprintf(e.ttyfd, "test\n");
-	ft_printf("$prompt>");
 	core_21sh(&e);
 	return (0);
 }
