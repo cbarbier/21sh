@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/20 11:03:54 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/11/27 17:47:49 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/11/28 15:20:06 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,9 @@ int				curs_left(t_21sh *e)
 	if (e->curs.x == 1)
 	{
 		e->curs.y--;
-		e->curs.x = tgetnum("co");
+		e->curs.x = e->co;
 		tputs(tgetstr("up", 0), 1, myput); 
-		tputs(tgoto(tgetstr("RI", 0), e->curs.y, e->co), 1, myput); 
+		tputs(tgoto(tgetstr("RI", 0), e->co, e->co), 1, myput); 
 	}
 	else if (!(e->curs.y == e->curs.sy
 	&& e->curs.x == e->curs.sx + (int)ft_strlen(e->prmpt)))

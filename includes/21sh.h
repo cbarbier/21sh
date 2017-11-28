@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/06 14:12:45 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/11/27 18:16:31 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/11/28 18:21:41 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
 # define TRUE					1
 # define FALSE					0
 # define DEBUG					1
-# define MAX_KEY_STRING_LENGTH	6
+# define MAX_KEY_STRING_LENGTH	9
 # define KEY_CODE_CTRL_D		0
 # define KEY_CODE_CTRL_R		1
 # define KEY_CODE_TAB			2
@@ -63,6 +63,7 @@ typedef struct	s_21sh
 	int				len;
 	int				ttyfd;
 	t_cursor		curs;
+	t_cursor		eol;
 	int				run;
 	int				co;
 	int				li;
@@ -83,6 +84,7 @@ t_key_func		*key_tab(void);
 int				key_apply_func(t_21sh *e);
 int				core_21sh(t_21sh *e);
 int				exit_21sh(t_21sh *e);
+void			del_line(void *ct, size_t size);
 /*
 ** 	EDIT LINE FUNCTIONS
 */

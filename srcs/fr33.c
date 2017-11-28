@@ -6,11 +6,17 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/21 16:52:15 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/11/21 16:56:06 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/11/28 15:42:55 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "21sh.h"
+
+void				del_line(void *ct, size_t size)
+{
+	(void)size;
+	ft_memdel(&ct);
+}
 
 static int			fr33(t_21sh *e)
 {

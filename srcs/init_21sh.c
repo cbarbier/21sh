@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/19 09:33:24 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/11/27 18:16:42 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/11/28 15:12:27 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ int		init_21sh(t_21sh *e, int argc, char **argv)
 	e->li = tgetnum("li");
 	ft_fprintf(e->ttyfd, "term nb cols: %d   nb lines: %d\n", e->co, e->li);
 	e->curs.x += ft_strlen(e->prmpt);
+	ft_memcpy(&e->eol, &e->curs, sizeof(t_cursor));
 	ft_printf("%s", e->prmpt);
 	return (0);
 }

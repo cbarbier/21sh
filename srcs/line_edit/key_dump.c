@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/19 17:33:55 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/11/21 18:48:39 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/11/28 18:18:46 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,5 +53,6 @@ int				key_apply_func(t_21sh *e)
 		}
 		i++;
 	}
+	ft_fprintf(e->ttyfd, "NO VALID KEY\n");
 	return (KEY_CODE_NONE);
 }

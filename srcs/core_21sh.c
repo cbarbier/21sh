@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/19 09:33:24 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/11/22 09:42:21 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/11/28 20:07:26 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,10 @@
 
 int				put_buff(t_21sh *e, char *buff)
 {
-	ft_fprintf(e->ttyfd, "DEBUG[%x][%x][%x][%x][%x][%x]\n", (int)buff[0], (int)buff[1], (int)buff[2], (int)buff[3], (int)buff[4], (int)buff[5]);
+	ft_fprintf(e->ttyfd, "DEBUG[%x][%x][%x][%x][%x][%x][%x][%x][%x]\n",
+			(int)buff[0], (int)buff[1], (int)buff[2], 
+			(int)buff[3], (int)buff[4], (int)buff[5], 
+			(int)buff[6], (int)buff[7], (int)buff[8]);
 	return (0);
 }
 
