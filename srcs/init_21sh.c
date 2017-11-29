@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/19 09:33:24 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/11/28 15:12:27 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/11/29 19:00:28 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,8 @@ static int	get_cursor_xy(t_21sh *e, t_cursor *curs)
 int		init_21sh(t_21sh *e, int argc, char **argv)
 {
 	ft_bzero(e, sizeof(t_21sh));
+	e->beg_sel = -1;
+	e->end_sel = -1;
 	e->run = 1;
 	ft_strcpy(e->prmpt, "$prompt>");
 	if (!(e->ttyfd = open(argv[argc - 1], O_WRONLY | O_NONBLOCK)))

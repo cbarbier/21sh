@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/20 11:03:54 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/11/28 15:35:31 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/11/29 19:12:59 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static int		get_eol(t_21sh *e, t_list *tmp)
 	e->eol.y = e->curs.sy;
 	while (tmp)
 	{
-		ft_fprintf(e->ttyfd, "%c ", *((char *)tmp->content));
+		ft_fprintf(e->ttyfd, "%c ", ((t_input *)tmp->content)->c);
 		if (e->eol.y == e->li && e->eol.x == e->co)
 		{
 			ft_fprintf(e->ttyfd, "ENDoF TERM\n");
@@ -27,19 +27,28 @@ static int		get_eol(t_21sh *e, t_list *tmp)
 		}
 		e->eol.x = e->eol.x == e->co ? 1 : e->eol.x + 1;
 		if (e->eol.x == 1 && e->eol.y < e->li)
-			e->eol.y++;
-		tmp = tmp->next;
+			e->eol.y++; tmp = tmp->next;
 	}
 	ft_fprintf(e->ttyfd, "EOL {%d : %d}\n", e->eol.x, e->eol.y);
 	return (0);
 }
 
-static int		putline(t_21sh *e, t_list *l)
+int				putline(t_21sh *e, t_list *l)
 {
+	t_input			*in;
+	int				i;
+
 	(void)e;
+	in = (t_input *)l->content;
+	i = 0;
 	while (l)
 	{
-		write(1, (char *)(l->content), 1);
+		in = (t_input *)l->content;
+		if (i >= e->beg_sel && i <= e->end_sel)
+			ft_printf("{red}%c{no}", in->c);
+		else
+			write(1, &in->c, 1);
+		i++;
 		l = l->next;
 	}
 	write(1, " ", 1);
@@ -69,14 +78,15 @@ static int		ft_lstaddat(t_list **al, t_list *new, int i)
 int				ins_char(t_21sh *e)
 {
 	int			i;
-	int			l;
 	t_list		*new;
+	t_input		in;
 
-	l = e->curs.y - e->curs.sy;
-	i = e->curs.x - ft_strlen(e->prmpt) - 1 + l * e->co;
+	in.c = *e->buff;
+	in.sel = 0;
+	i = e->curs.x - ft_strlen(e->prmpt) - 1 +  (e->curs.y - e->curs.sy) * e->co;
 	ft_fprintf(e->ttyfd, "function ins char {{ %c }} at %i\n", *e->buff, i);
 	ft_fprintf(e->ttyfd, "END x %d y %d\n", ((int)ft_strlen(e->prmpt) + e->curs.sx + e->ln) % e->co, e->curs.sy + e->ln / e->co);
-	if (!(new = ft_lstnew(e->buff, sizeof(char))))
+	if (!(new = ft_lstnew(e->buff, sizeof(t_input))))
 		return (1);
 	tputs(tgoto(tgetstr("cm", 0), e->curs.sx + ft_strlen(e->prmpt) - 1, e->curs.sy - 1), 1, myput);
 	ft_lstaddat(&e->line, new, i);
@@ -86,5 +96,6 @@ int				ins_char(t_21sh *e)
 	tputs(tgoto(tgetstr("cm", 0), e->curs.x - 1, e->curs.y - 1), 1, myput);
 	curs_right(e);
 	e->ln++;
+	ft_fprintf(e->ttyfd, "CURSOR { %d : %d } START @ { %d : %d }\n", e->curs.x, e->curs.y, e->curs.sx, e->curs.sy);
 	return (0);
 }

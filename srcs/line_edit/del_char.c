@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/20 11:03:54 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/11/28 17:39:53 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/11/29 19:26:10 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ static	int		to_del(void *ct, void *d)
 
 static int		put_eol(t_21sh *e, t_list *l, int n)
 {
+	t_input		*in;
 	int			i;
 
 	i = 1;
@@ -34,7 +35,8 @@ static int		put_eol(t_21sh *e, t_list *l, int n)
 		l = l->next;
 	while (l)
 	{
-		write(1, (char *)(l->content), 1);
+		in = (t_input *)l->content;
+		write(1, &in->c, 1);
 		l = l->next;
 	}
 	return (0);
@@ -60,5 +62,10 @@ int				del_char(t_21sh *e)
 	put_eol(e, e->line, data.y);
 	tputs(tgetstr("rc", 0), 1, myput);
 	e->ln--;
+	if (data.y <= e->beg_sel) 
+		e->beg_sel--;
+	else if (data.y <= e->end_sel)
+		e->end_sel--;
+	ft_fprintf(e->ttyfd, "CURSOR { %d : %d } START @ { %d : %d }\n", e->curs.x, e->curs.y, e->curs.sx, e->curs.sy);
 	return (0);
 }

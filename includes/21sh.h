@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/06 14:12:45 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/11/28 18:21:41 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/11/29 18:29:19 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,23 +23,33 @@
 # define FALSE					0
 # define DEBUG					1
 # define MAX_KEY_STRING_LENGTH	9
+# define NB_KEYS				21
 # define KEY_CODE_CTRL_D		0
-# define KEY_CODE_CTRL_R		1
-# define KEY_CODE_TAB			2
-# define KEY_CODE_HOME			3
-# define KEY_CODE_END			4
-# define KEY_CODE_UP			5
-# define KEY_CODE_DOWN			6
-# define KEY_CODE_LEFT			7
-# define KEY_CODE_RIGHT			8
-# define KEY_CODE_RET			9
-# define KEY_CODE_DEL			10
-# define KEY_CODE_ALT_UP		11
-# define KEY_CODE_ALT_DOWN		12
-# define KEY_CODE_ALT_LEFT		13
-# define KEY_CODE_ALT_RIGHT		14
-# define KEY_CODE_ASCII			15
-# define KEY_CODE_NONE			16
+# define KEY_CODE_HOME			1
+# define KEY_CODE_END			2
+# define KEY_CODE_UP			3
+# define KEY_CODE_DOWN			4
+# define KEY_CODE_LEFT			5
+# define KEY_CODE_RIGHT			6
+# define KEY_CODE_RET			7
+# define KEY_CODE_DEL			8
+# define KEY_CODE_ALT_UP		9
+# define KEY_CODE_ALT_DOWN		10
+# define KEY_CODE_ALT_LEFT		11
+# define KEY_CODE_ALT_RIGHT		12
+# define KEY_CODE_ASCII			13
+# define KEY_CODE_ALT_X			14
+# define KEY_CODE_ALT_C			15
+# define KEY_CODE_ALT_V			16
+# define KEY_CODE_SHFT_UP		17
+# define KEY_CODE_SHFT_DOWN		18
+# define KEY_CODE_SHFT_LEFT		19
+# define KEY_CODE_SHFT_RIGHT	20
+typedef struct	s_input
+{
+	char		c;
+	int			sel;
+}				t_input;
 typedef struct	s_cursor
 {
 	int		sx;
@@ -60,6 +70,7 @@ typedef struct	s_21sh
 	char			prmpt[9];
 	char			buff[MAX_KEY_STRING_LENGTH + 1];
 	t_list			*line;
+	t_list			*save;
 	int				len;
 	int				ttyfd;
 	t_cursor		curs;
@@ -68,6 +79,8 @@ typedef struct	s_21sh
 	int				co;
 	int				li;
 	int				ln;
+	int				beg_sel;
+	int				end_sel;
 }					t_21sh;
 /*
 ** 	INIT FUNCTIONS
@@ -85,6 +98,7 @@ int				key_apply_func(t_21sh *e);
 int				core_21sh(t_21sh *e);
 int				exit_21sh(t_21sh *e);
 void			del_line(void *ct, size_t size);
+int				putline(t_21sh *e, t_list *l);
 /*
 ** 	EDIT LINE FUNCTIONS
 */
@@ -105,6 +119,13 @@ int				ret_handler(t_21sh *e);
 int				tab_handler(t_21sh *e);
 int				history_back(t_21sh *e);
 int				history_next(t_21sh *e);
+int				do_cut(t_21sh *e);
+int				do_copy(t_21sh *e);
+int				do_paste(t_21sh *e);
+int				select_right(t_21sh *e);
+int				select_left(t_21sh *e);
+int				select_up(t_21sh *e);
+int				select_down(t_21sh *e);
 /*
 ** 	TEST KEY FUNCTIONS
 */
@@ -124,6 +145,13 @@ int				key_is_alt_down(char *buff);
 int				key_is_alt_left(char *buff);
 int				key_is_alt_right(char *buff);
 int				key_is_char(char *buff);
+int				key_is_alt_x(char *buff);
+int				key_is_alt_c(char *buff);
+int				key_is_alt_v(char *buff);
+int				key_is_shft_up(char *buff);
+int				key_is_shft_down(char *buff);
+int				key_is_shft_left(char *buff);
+int				key_is_shft_right(char *buff);
 /*
 ** 	DEBUG FUNCTIONS
 */

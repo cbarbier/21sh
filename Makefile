@@ -6,7 +6,7 @@
 #    By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/03/04 14:32:18 by cbarbier          #+#    #+#              #
-#    Updated: 2017/11/21 17:54:02 by cbarbier         ###   ########.fr        #
+#    Updated: 2017/11/29 16:28:10 by cbarbier         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,6 +25,7 @@ SRCS 			= srcs/main.c \
  				  srcs/line_edit/key_is2.c \
  				  srcs/line_edit/key_is3.c \
  				  srcs/line_edit/key_is4.c \
+ 				  srcs/line_edit/key_is5.c \
 				  srcs/line_edit/key_dump.c \
 				  srcs/line_edit/ctrl_d_handler.c \
 				  srcs/line_edit/ctrl_r_handler.c \
@@ -41,7 +42,11 @@ SRCS 			= srcs/main.c \
 				  srcs/line_edit/history_next.c \
 				  srcs/line_edit/ins_char.c \
 				  srcs/line_edit/ret_handler.c \
-				  srcs/line_edit/tab_handler.c
+				  srcs/line_edit/tab_handler.c \
+				  srcs/line_edit/do_cut.c \
+				  srcs/line_edit/do_copy.c \
+				  srcs/line_edit/do_paste.c \
+				  srcs/line_edit/selection.c
 
 OBJS			= $(SRCS:.c=.o)
 

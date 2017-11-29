@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/20 11:03:54 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/11/28 15:20:06 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/11/29 11:30:11 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,6 @@ int				curs_left(t_21sh *e)
 		e->curs.x--;
 		tputs(tgetstr("le", 0), 1, myput); 
 	}
-	ft_fprintf(e->ttyfd, "CURSOR { %d : %d }\n", e->curs.x, e->curs.y);
+	ft_fprintf(e->ttyfd, "CURSOR { %d : %d } START @ { %d : %d }\n", e->curs.x, e->curs.y, e->curs.sx, e->curs.sy);
 	return (0);
 }
