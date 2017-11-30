@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/20 11:03:54 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/11/29 11:32:29 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/11/30 22:16:22 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,5 +30,10 @@ int				go_next_line(t_21sh *e)
 		}	
 	}
 	ft_fprintf(e->ttyfd, "CURSOR { %d : %d } START @ { %d : %d }\n", e->curs.x, e->curs.y, e->curs.sx, e->curs.sy);
+	if (e->beg_sel != -2)
+	{
+		e->beg_sel = -2;
+		refresh_line(e, e->line);
+	}
 	return (0);
 }

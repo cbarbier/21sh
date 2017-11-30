@@ -6,7 +6,7 @@
 #    By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/03/04 14:32:18 by cbarbier          #+#    #+#              #
-#    Updated: 2017/11/29 16:28:10 by cbarbier         ###   ########.fr        #
+#    Updated: 2017/11/30 13:49:02 by cbarbier         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,7 +28,6 @@ SRCS 			= srcs/main.c \
  				  srcs/line_edit/key_is5.c \
 				  srcs/line_edit/key_dump.c \
 				  srcs/line_edit/ctrl_d_handler.c \
-				  srcs/line_edit/ctrl_r_handler.c \
 				  srcs/line_edit/cursor_left.c \
 				  srcs/line_edit/cursor_right.c \
 				  srcs/line_edit/del_char.c \

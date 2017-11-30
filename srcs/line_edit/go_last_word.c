@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/20 11:03:54 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/11/29 17:31:02 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/11/30 22:17:16 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,5 +54,10 @@ int				go_last_word(t_21sh *e)
 	e->curs.x = ((int)ft_strlen(e->prmpt) + i) % e->co;
 	e->curs.y = e->curs.sy + ((int)ft_strlen(e->prmpt) + i) / e->co;
 	tputs(tgoto(tgetstr("cm", 0), e->curs.x - 1, e->curs.y - 1), 1, myput);
+	if (e->beg_sel != -2)
+	{
+		e->beg_sel = -2;
+		refresh_line(e, e->line);
+	}
 	return (0);
 }

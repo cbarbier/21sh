@@ -1,4 +1,4 @@
-/* ************************************************************************** */
+/* ************************************************************************* */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   ins_char.c                                         :+:      :+:    :+:   */
@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/20 11:03:54 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/11/29 19:12:59 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/12/01 00:04:43 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,12 +39,11 @@ int				putline(t_21sh *e, t_list *l)
 	int				i;
 
 	(void)e;
-	in = (t_input *)l->content;
 	i = 0;
 	while (l)
 	{
 		in = (t_input *)l->content;
-		if (i >= e->beg_sel && i <= e->end_sel)
+		if (e->beg_sel != -2 && i >= MIN(e->beg_sel, e->end_sel) && i <= MAX(e->beg_sel, e->end_sel))
 			ft_printf("{red}%c{no}", in->c);
 		else
 			write(1, &in->c, 1);
@@ -97,5 +96,6 @@ int				ins_char(t_21sh *e)
 	curs_right(e);
 	e->ln++;
 	ft_fprintf(e->ttyfd, "CURSOR { %d : %d } START @ { %d : %d }\n", e->curs.x, e->curs.y, e->curs.sx, e->curs.sy);
+	e->beg_sel = -2;
 	return (0);
 }

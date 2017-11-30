@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/06 14:12:45 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/11/29 18:29:19 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/11/30 23:54:49 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,8 @@
 # define KEY_CODE_SHFT_DOWN		18
 # define KEY_CODE_SHFT_LEFT		19
 # define KEY_CODE_SHFT_RIGHT	20
+# define MAX(A, B)	((A) > (B) ? (A) : (B)) 
+# define MIN(A, B)	((A) < (B) ? (A) : (B)) 
 typedef struct	s_input
 {
 	char		c;
@@ -71,7 +73,6 @@ typedef struct	s_21sh
 	char			buff[MAX_KEY_STRING_LENGTH + 1];
 	t_list			*line;
 	t_list			*save;
-	int				len;
 	int				ttyfd;
 	t_cursor		curs;
 	t_cursor		eol;
@@ -99,6 +100,7 @@ int				core_21sh(t_21sh *e);
 int				exit_21sh(t_21sh *e);
 void			del_line(void *ct, size_t size);
 int				putline(t_21sh *e, t_list *l);
+int				refresh_line(t_21sh *e, t_list *l);
 /*
 ** 	EDIT LINE FUNCTIONS
 */

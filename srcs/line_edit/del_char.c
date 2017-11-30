@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/20 11:03:54 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/11/29 19:26:10 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/11/30 18:57:17 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,10 +62,6 @@ int				del_char(t_21sh *e)
 	put_eol(e, e->line, data.y);
 	tputs(tgetstr("rc", 0), 1, myput);
 	e->ln--;
-	if (data.y <= e->beg_sel) 
-		e->beg_sel--;
-	else if (data.y <= e->end_sel)
-		e->end_sel--;
 	ft_fprintf(e->ttyfd, "CURSOR { %d : %d } START @ { %d : %d }\n", e->curs.x, e->curs.y, e->curs.sx, e->curs.sy);
 	return (0);
 }
