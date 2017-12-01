@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/20 11:03:54 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/11/30 22:13:14 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/12/01 04:50:47 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,11 @@
 
 int				refresh_line(t_21sh *e, t_list *l)
 {
-	ft_fprintf(e->ttyfd, "selecting DBUG beg=%d & end=%d\n", e->beg_sel, e->end_sel);
+	ft_fprintf(e->ttyfd, "selecting DBUG beg=%d & end=%d\n",
+			e->beg_sel, e->end_sel);
 	tputs(tgetstr("sc", 0), 1, myput);
-	tputs(tgoto(tgetstr("cm", 0), e->curs.sx + ft_strlen(e->prmpt) - 1, e->curs.sy - 1), 1, myput);
+	tputs(tgoto(tgetstr("cm", 0), e->curs.sx +
+				ft_strlen(e->prmpt) - 1, e->curs.sy - 1), 1, myput);
 	tputs(tgetstr("cd", 0), 1, myput);
 	putline(e, l);
 	tputs(tgetstr("rc", 0), 1, myput);
@@ -35,11 +37,13 @@ int				select_up(t_21sh *e)
 	else
 	{
 		if (e->beg_sel == -2)
-			e->beg_sel = e->curs.x - (int)ft_strlen(e->prmpt) - 1 + (e->curs.y - e->curs.sy) * e->co;
+			e->beg_sel = e->curs.x - (int)ft_strlen(e->prmpt) - 1 +
+				(e->curs.y - e->curs.sy) * e->co;
 		save_beg = e->beg_sel;
 		go_last_line(e);
 		e->beg_sel = save_beg;
-		e->end_sel = e->curs.x - (int)ft_strlen(e->prmpt) - 1 + (e->curs.y - e->curs.sy) * e->co;
+		e->end_sel = e->curs.x - (int)ft_strlen(e->prmpt) - 1 +
+			(e->curs.y - e->curs.sy) * e->co;
 	}
 	refresh_line(e, e->line);
 	ft_fprintf(e->ttyfd, "function select_up\n");
@@ -58,11 +62,13 @@ int				select_down(t_21sh *e)
 	else
 	{
 		if (e->beg_sel == -2)
-			e->beg_sel = e->curs.x - (int)ft_strlen(e->prmpt) - 1 + (e->curs.y - e->curs.sy) * e->co;
+			e->beg_sel = e->curs.x - (int)ft_strlen(e->prmpt) - 1 +
+				(e->curs.y - e->curs.sy) * e->co;
 		save_beg = e->beg_sel;
 		go_next_line(e);
 		e->beg_sel = save_beg;
-		e->end_sel = e->curs.x - (int)ft_strlen(e->prmpt) - 1 + (e->curs.y - e->curs.sy) * e->co;
+		e->end_sel = e->curs.x - (int)ft_strlen(e->prmpt) - 1 +
+			(e->curs.y - e->curs.sy) * e->co;
 	}
 	refresh_line(e, e->line);
 	ft_fprintf(e->ttyfd, "function select_down\n");
@@ -81,11 +87,13 @@ int				select_right(t_21sh *e)
 	else
 	{
 		if (e->beg_sel == -2)
-			e->beg_sel = e->curs.x - (int)ft_strlen(e->prmpt) - 1 + (e->curs.y - e->curs.sy) * e->co;
+			e->beg_sel = e->curs.x - (int)ft_strlen(e->prmpt) - 1 +
+				(e->curs.y - e->curs.sy) * e->co;
 		save_beg = e->beg_sel;
 		curs_right(e);
 		e->beg_sel = save_beg;
-		e->end_sel = e->curs.x - (int)ft_strlen(e->prmpt) - 1 + (e->curs.y - e->curs.sy) * e->co;
+		e->end_sel = e->curs.x - (int)ft_strlen(e->prmpt) - 1 +
+			(e->curs.y - e->curs.sy) * e->co;
 	}
 	refresh_line(e, e->line);
 	ft_fprintf(e->ttyfd, "function select_right\n");
@@ -96,21 +104,24 @@ int				select_left(t_21sh *e)
 {
 	int				save_beg;
 
-	if (!e->ln || (e->curs.y == e->curs.sy && e->curs.x == (int)ft_strlen(e->prmpt) + 1))
+	if (!e->ln || (e->curs.y == e->curs.sy
+				&& e->curs.x == (int)ft_strlen(e->prmpt) + 1))
 	{
-		ft_fprintf(e->ttyfd, "can-t left  the sleection e->ln = %d\n", e->ln);
+		ft_fprintf(e->ttyfd, "can-t left  the sleection e->ln = %d\n",
+				e->ln);
 		if (!e->ln)
 			return (0);
-		e->end_sel = -1;
 	}
 	else
 	{
 		if (e->beg_sel == -2)
-			e->beg_sel = e->curs.x - (int)ft_strlen(e->prmpt) - 1 + (e->curs.y - e->curs.sy) * e->co;
+			e->beg_sel = e->curs.x - (int)ft_strlen(e->prmpt) - 1 +
+				(e->curs.y - e->curs.sy) * e->co;
 		save_beg = e->beg_sel;
 		curs_left(e);
 		e->beg_sel = save_beg;
-		e->end_sel = e->curs.x - (int)ft_strlen(e->prmpt) - 1 + (e->curs.y - e->curs.sy) * e->co;
+		e->end_sel = e->curs.x - (int)ft_strlen(e->prmpt) - 1 +
+			(e->curs.y - e->curs.sy) * e->co;
 	}
 	refresh_line(e, e->line);
 	ft_fprintf(e->ttyfd, "function select_left\n");

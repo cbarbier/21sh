@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/20 11:03:54 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/11/30 22:08:58 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/12/01 04:38:45 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,8 @@ int				do_copy(t_21sh *e)
 	ft_fprintf(e->ttyfd, "cleaning the last save\n");
 	ft_lstdel(&e->save, del_line);
 	ft_fprintf(e->ttyfd, "trying to sub the list line\n");
-	if (!(e->save = ft_lstsub(e, e->line, MIN(e->beg_sel, e->end_sel), MAX(e->beg_sel, e->end_sel))))
+	if (!(e->save = ft_lstsub(e, e->line, MIN(e->beg_sel, e->end_sel),
+					MAX(e->beg_sel, e->end_sel))))
 		return (0);
 	l = e->save;
 	ft_fprintf(e->ttyfd, "e->save : \n");

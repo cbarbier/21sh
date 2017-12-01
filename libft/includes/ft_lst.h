@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/05 13:50:51 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/10/09 13:48:00 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/12/01 02:56:14 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void			ft_lstadd(t_list **alst, t_list *new);
 int				ft_lstany(t_list *lst, int (*f)(t_list *e, void *d), void *da);
 t_list			*ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem));
 void			ft_lstpushback(t_list **alst, t_list *elem);
-void			ft_lstshift(t_list **alst, void	(*del)(void **));
+void			ft_lstshift(t_list **alst, void	(*del)(void *, size_t));
 size_t			ft_lstlen(t_list *lst);
 void			ft_lstsort(t_list *lst, int	(*fcmp)(t_list *a, t_list *b));
 void			ft_lstreverse(t_list **alst);

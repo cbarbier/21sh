@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/20 11:03:54 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/11/30 18:57:17 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/12/01 04:38:06 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ static	int		to_del(void *ct, void *d)
 
 	(void)ct;
 	data = (t_cursor *)d;
-
 	if (data->x++ == data->y)
 		return (1);
 	return (0);
@@ -53,7 +52,8 @@ int				del_char(t_21sh *e)
 		return (0);
 	}
 	data.x = 1;
-	data.y = e->curs.x - ft_strlen(e->prmpt) - 1 + (e->curs.y - e->curs.sy) * e->co;
+	data.y = e->curs.x - ft_strlen(e->prmpt) - 1 +
+		(e->curs.y - e->curs.sy) * e->co;
 	ft_lstfilter(&e->line, del_line, to_del, (void *)&data);
 	ft_fprintf(e->ttyfd, "function del char\n");
 	curs_left(e);
@@ -62,6 +62,7 @@ int				del_char(t_21sh *e)
 	put_eol(e, e->line, data.y);
 	tputs(tgetstr("rc", 0), 1, myput);
 	e->ln--;
-	ft_fprintf(e->ttyfd, "CURSOR { %d : %d } START @ { %d : %d }\n", e->curs.x, e->curs.y, e->curs.sx, e->curs.sy);
+	ft_fprintf(e->ttyfd, "CURSOR { %d : %d } START @ { %d : %d }\n",
+			e->curs.x, e->curs.y, e->curs.sx, e->curs.sy);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/06 14:12:45 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/11/30 23:54:49 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/12/01 04:16:52 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@
 typedef struct	s_input
 {
 	char		c;
-	int			sel;
+	int			del;
 }				t_input;
 typedef struct	s_cursor
 {

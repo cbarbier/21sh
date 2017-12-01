@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/20 11:03:54 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/11/30 21:54:06 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/12/01 04:40:27 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int				do_paste(t_21sh *e)
 {
 	int			i;
 
-	i = e->curs.x - ft_strlen(e->prmpt) - 1 +  (e->curs.y - e->curs.sy) * e->co;
+	i = e->curs.x - ft_strlen(e->prmpt) - 1 + (e->curs.y - e->curs.sy) * e->co;
 	ft_fprintf(e->ttyfd, "function do_paste at index %i\n", i);
 	e->beg_sel = -2;
 	if (!ft_lstjoinat(&e->line, ft_lstcpy(e->save, sizeof(t_input *)), i))

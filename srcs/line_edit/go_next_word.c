@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/20 11:03:54 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/11/30 22:16:55 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/12/01 04:44:07 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,8 @@ int				go_next_word(t_21sh *e)
 	int				n;
 	int				i;
 
-	n = e->curs.x - (int)ft_strlen(e->prmpt) - 1 + (e->curs.y - e->curs.sy) * e->co;
+	n = e->curs.x - (int)ft_strlen(e->prmpt) - 1 +
+		(e->curs.y - e->curs.sy) * e->co;
 	ft_fprintf(e->ttyfd, "function  go next word cursor at n=%d\n", n);
 	if ((i = lst_next_word(e, e->line, n)) == -1)
 	{

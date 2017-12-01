@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/19 09:33:24 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/11/29 19:00:28 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/12/01 04:32:15 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,16 +26,16 @@ static int	get_cursor_xy(t_21sh *e, t_cursor *curs)
 		return (1);
 	while (i < ret && buff[i] != ';')
 		curs->y = 10 * curs->y + (int)buff[i++] - '0';
-	ft_fprintf(e->ttyfd, "cursor x[%d] y[%d]\n", curs->x, curs->y); 
+	ft_fprintf(e->ttyfd, "cursor x[%d] y[%d]\n", curs->x, curs->y);
 	while (++i < ret && buff[i] != 'R')
 		curs->x = 10 * curs->x + (int)buff[i] - '0';
-	ft_fprintf(e->ttyfd, "cursor x[%d] y[%d]\n", curs->x, curs->y); 
+	ft_fprintf(e->ttyfd, "cursor x[%d] y[%d]\n", curs->x, curs->y);
 	curs->sx = curs->x;
 	curs->sy = curs->y;
 	return (0);
 }
 
-int		init_21sh(t_21sh *e, int argc, char **argv)
+int			init_21sh(t_21sh *e, int argc, char **argv)
 {
 	ft_bzero(e, sizeof(t_21sh));
 	e->beg_sel = -1;
