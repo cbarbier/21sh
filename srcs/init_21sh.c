@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/19 09:33:24 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/12/01 04:32:15 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/12/01 17:38:49 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,28 +35,46 @@ static int	get_cursor_xy(t_21sh *e, t_cursor *curs)
 	return (0);
 }
 
-int			init_21sh(t_21sh *e, int argc, char **argv)
+int			init_loop(t_21sh *e)
 {
-	ft_bzero(e, sizeof(t_21sh));
-	e->beg_sel = -1;
-	e->end_sel = -1;
-	e->run = 1;
-	ft_strcpy(e->prmpt, "$prompt>");
-	if (!(e->ttyfd = open(argv[argc - 1], O_WRONLY | O_NONBLOCK)))
-		return (ft_fprintf(2, "Error: can't open tty\n"));
 	if (init_termcaps(e))
 	{
 		reset_terminal(e);
 		return (ft_fprintf(2, "Error: can't get term infos\n"));
 	}
+	ft_bzero(&e->curs, sizeof(t_cursor));
+	ft_lstdel(&e->line, del_line);
+	e->ln = 0;
 	if (get_cursor_xy(e, &e->curs))
 		return (ft_fprintf(2, "Error: can't get cursor\n"));
-	ft_fprintf(e->ttyfd, "### WELCOME 21SH ###\n");
 	e->co = tgetnum("co");
 	e->li = tgetnum("li");
 	ft_fprintf(e->ttyfd, "term nb cols: %d   nb lines: %d\n", e->co, e->li);
-	e->curs.x += ft_strlen(e->prmpt);
-	ft_memcpy(&e->eol, &e->curs, sizeof(t_cursor));
 	ft_printf("%s", e->prmpt);
+	e->curs.x += ft_strlen(e->prmpt);
+	e->beg_sel = -1;
+	e->end_sel = -1;
+	return (0);
+}
+
+t_21sh		*get_e(t_21sh *ae)
+{
+	static t_21sh		*e = 0;
+
+	if (ae)
+		e = ae;
+	return (ae);
+}
+
+int			init_21sh(t_21sh *e, int argc, char **argv)
+{
+	ft_bzero(e, sizeof(t_21sh));
+	get_e(e);
+	if (!(e->ttyfd = open(argv[argc - 1], O_WRONLY | O_NONBLOCK)))
+		return (ft_fprintf(2, "Error: can't open tty\n"));
+	ft_strcpy(e->prmpt, "$prompt>");
+	e->run = 1;
+	ft_fprintf(e->ttyfd, "### WELCOME 21SH ###\n");
+	init_loop(e);
 	return (0);
 }

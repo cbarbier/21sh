@@ -6,13 +6,13 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/19 09:33:24 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/12/01 04:33:42 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/12/01 17:33:21 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "21sh.h"
 
-static int	put_tc(int ttyfd, char *cap)
+int	put_tc(int ttyfd, char *cap)
 {
 	char buff[7];
 
@@ -36,7 +36,6 @@ int			main(int argc, char **argv)
 
 	if (init_21sh(&e, argc, argv))
 		return (exit_21sh(&e));
-	put_tc(e.ttyfd, "ku");
 	core_21sh(&e);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/20 11:03:54 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/12/01 04:39:56 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/12/01 18:19:20 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,5 @@ int				do_cut(t_21sh *e)
 	ft_fprintf(e->ttyfd, "NEW LEN  %d\n", e->ln);
 	tputs(tgoto(tgetstr("cm", 0), e->curs.x - 1, e->curs.y - 1), 1, myput);
 	e->beg_sel = -2;
-	refresh_line(e, e->line);
-	return (0);
+	return (refresh_line(e, e->line));
 }

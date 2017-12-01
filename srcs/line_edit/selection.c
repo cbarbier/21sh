@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/20 11:03:54 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/12/01 04:50:47 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/12/01 18:01:07 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,13 @@ int				refresh_line(t_21sh *e, t_list *l)
 {
 	ft_fprintf(e->ttyfd, "selecting DBUG beg=%d & end=%d\n",
 			e->beg_sel, e->end_sel);
-	tputs(tgetstr("sc", 0), 1, myput);
 	tputs(tgoto(tgetstr("cm", 0), e->curs.sx +
 				ft_strlen(e->prmpt) - 1, e->curs.sy - 1), 1, myput);
+	if (get_eol(e, e->line) == -1)
+		return (-1);
 	tputs(tgetstr("cd", 0), 1, myput);
 	putline(e, l);
-	tputs(tgetstr("rc", 0), 1, myput);
+	tputs(tgoto(tgetstr("cm", 0), e->curs.x - 1, e->curs.y - 1), 1, myput);
 	return (0);
 }
 
@@ -123,7 +124,6 @@ int				select_left(t_21sh *e)
 		e->end_sel = e->curs.x - (int)ft_strlen(e->prmpt) - 1 +
 			(e->curs.y - e->curs.sy) * e->co;
 	}
-	refresh_line(e, e->line);
 	ft_fprintf(e->ttyfd, "function select_left\n");
-	return (0);
+	return (refresh_line(e, e->line));
 }

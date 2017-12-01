@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/06 14:12:45 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/12/01 04:16:52 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/12/01 17:55:23 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,9 @@ typedef struct	s_21sh
 int				init_termcaps(t_21sh *e);
 int				reset_terminal(t_21sh *e);
 int				init_21sh(t_21sh *e, int argc, char **argv);
+int				init_loop(t_21sh *e);
+int				next_loop(t_21sh *e, char *str, int (*f)(t_21sh*));
+t_21sh			*get_e(t_21sh *e);
 /*
 ** 	CORE FUNCTIONS
 */
@@ -101,6 +104,7 @@ int				exit_21sh(t_21sh *e);
 void			del_line(void *ct, size_t size);
 int				putline(t_21sh *e, t_list *l);
 int				refresh_line(t_21sh *e, t_list *l);
+int				get_eol(t_21sh *e, t_list *tmp);
 /*
 ** 	EDIT LINE FUNCTIONS
 */
