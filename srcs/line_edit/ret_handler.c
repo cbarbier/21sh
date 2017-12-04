@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/20 11:03:54 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/12/01 18:22:16 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/12/04 15:19:48 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,9 @@ int				next_loop(t_21sh *e, char *str, int (*f)(t_21sh *))
 	e->beg_sel = -2;
 	ret = refresh_line(e, e->line);
 	reset_terminal(e);
-	ft_printf("\n%s\n", str);
-	if (f)
+	if (str)
+		ft_fprintf(2, "\n%s\n", str);
+	else if (f)
 		f(e);
 	if (e->run)
 		init_loop(e);

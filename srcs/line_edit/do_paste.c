@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/20 11:03:54 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/12/01 18:32:54 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/12/04 15:38:19 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int				ft_lstjoinat(t_list **al, t_list *ll, int n)
 	t_list			*tmp;
 	int				i;
 
-	if (!(l = *al) | !ll)
+	if (!(l = *al) && !ll)
 		return (1);
 	if (!l || !n)
 	{
