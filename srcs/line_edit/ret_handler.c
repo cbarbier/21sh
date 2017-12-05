@@ -6,11 +6,29 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/20 11:03:54 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/12/04 15:19:48 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/12/05 17:24:11 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "21sh.h"
+
+static int		to_history(t_21sh *e)
+{
+	t_list			*l;
+
+	l = e->line;
+	e->line = 0;
+	if (!l)
+	{
+		ft_fprintf(e->ttyfd, "line empty =< not in history\n");
+		return (0);
+	}
+	if (e->hist[HIST_LEN - 1])
+		ft_lstdel(&e->hist[HIST_LEN - 1], del_line);
+	ft_memmove((e->hist + 1), e->hist, (HIST_LEN - 1) * sizeof(t_list *));
+	e->hist[0] = l;
+	return (0);
+}
 
 int				next_loop(t_21sh *e, char *str, int (*f)(t_21sh *))
 {
@@ -21,7 +39,7 @@ int				next_loop(t_21sh *e, char *str, int (*f)(t_21sh *))
 	reset_terminal(e);
 	if (str)
 		ft_fprintf(2, "\n%s\n", str);
-	else if (f)
+	if (f)
 		f(e);
 	if (e->run)
 		init_loop(e);
@@ -31,7 +49,6 @@ int				next_loop(t_21sh *e, char *str, int (*f)(t_21sh *))
 int				ret_handler(t_21sh *e)
 {
 	ft_fprintf(e->ttyfd, "function ret handler\n");
-	next_loop(e, "parsing && processing the commands  blabla bla", 0);
+	next_loop(e, "parsing && processing the commands  blabla bla", to_history);
 	return (0);
 }
-

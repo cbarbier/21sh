@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/20 11:03:54 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/12/01 18:19:20 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/12/05 17:27:17 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,11 +71,6 @@ int				do_cut(t_21sh *e)
 	e->ln = ft_lstlen(e->line);
 	ft_fprintf(e->ttyfd, "save list :\n");
 	l = e->save;
-	while (l)
-	{
-		ft_fprintf(e->ttyfd, "%c ", (l ? ((t_input *)(l->content))->c : '0'));
-		l = l->next;
-	}
 	ft_fprintf(e->ttyfd, "NEW LEN  %d\n", e->ln);
 	tputs(tgoto(tgetstr("cm", 0), e->curs.x - 1, e->curs.y - 1), 1, myput);
 	e->beg_sel = -2;

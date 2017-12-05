@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/06 14:12:45 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/12/01 17:55:23 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/12/05 17:31:44 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,14 @@
 # define KEY_CODE_SHFT_DOWN		18
 # define KEY_CODE_SHFT_LEFT		19
 # define KEY_CODE_SHFT_RIGHT	20
+# define HIST_LEN				5
 # define MAX(A, B)	((A) > (B) ? (A) : (B)) 
 # define MIN(A, B)	((A) < (B) ? (A) : (B)) 
+typedef struct	s_hist
+{
+	t_list		*line;
+	int			sel;
+}				t_hist;
 typedef struct	s_input
 {
 	char		c;
@@ -73,6 +79,8 @@ typedef struct	s_21sh
 	char			buff[MAX_KEY_STRING_LENGTH + 1];
 	t_list			*line;
 	t_list			*save;
+	t_list			*hist[HIST_LEN];
+	int				histpos;
 	int				ttyfd;
 	t_cursor		curs;
 	t_cursor		eol;
@@ -104,7 +112,7 @@ int				exit_21sh(t_21sh *e);
 void			del_line(void *ct, size_t size);
 int				putline(t_21sh *e, t_list *l);
 int				refresh_line(t_21sh *e, t_list *l);
-int				get_eol(t_21sh *e, t_list *tmp);
+int				get_eol(t_21sh *e);
 /*
 ** 	EDIT LINE FUNCTIONS
 */

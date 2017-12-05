@@ -6,23 +6,22 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/20 11:03:54 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/12/01 18:22:48 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/12/05 17:31:02 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "21sh.h"
 
-int				get_eol(t_21sh *e, t_list *tmp)
+int				get_eol(t_21sh *e)
 {
 	int			n;
 	int			d;
 
-	(void)tmp;
 	n = e->ln + (int)ft_strlen(e->prmpt);
 	d = e->curs.sy + (n / e->co);
 	n = e->curs.sy;
 	tputs(tgetstr("cd", 0), 1, myput);
-	ft_fprintf(e->ttyfd, "gotta jump %d lines | height of the command : %d\n", d, d - n);
+	ft_fprintf(e->ttyfd, "gotta jump %d lines | height : %d\n", d, d - n);
 	if ((int)ft_lstlen(e->line) > e->li * e->co)
 	{
 		ft_fprintf(e->ttyfd, "command line way too big\n", d);
@@ -99,14 +98,8 @@ int				ins_char(t_21sh *e)
 			% e->co, e->curs.sy + e->ln / e->co);
 	if (!(new = ft_lstnew(e->buff, sizeof(t_input))))
 		return (1);
-	//tputs(tgoto(tgetstr("cm", 0), e->curs.sx +
-				//ft_strlen(e->prmpt) - 1, e->curs.sy - 1), 1, myput);
 	ft_lstaddat(&e->line, new, i);
 	e->ln++;
-//	get_eol(e, e->line);
-	//putline(e, e->line);
-	//tputs(tgetstr("cd", 0), 1, myput);
-	//tputs(tgoto(tgetstr("cm", 0), e->curs.x - 1, e->curs.y - 1), 1, myput);
 	if (!(i = refresh_line(e, e->line)))
 		curs_right(e);
 	ft_fprintf(e->ttyfd, "CURSOR { %d : %d } START @ { %d : %d }\n",

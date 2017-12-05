@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/20 11:03:54 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/12/01 18:01:07 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/12/05 17:31:21 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,12 @@
 
 int				refresh_line(t_21sh *e, t_list *l)
 {
+	e->ln = ft_lstlen(e->line);
 	ft_fprintf(e->ttyfd, "selecting DBUG beg=%d & end=%d\n",
 			e->beg_sel, e->end_sel);
 	tputs(tgoto(tgetstr("cm", 0), e->curs.sx +
 				ft_strlen(e->prmpt) - 1, e->curs.sy - 1), 1, myput);
-	if (get_eol(e, e->line) == -1)
+	if (get_eol(e) == -1)
 		return (-1);
 	tputs(tgetstr("cd", 0), 1, myput);
 	putline(e, l);

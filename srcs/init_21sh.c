@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/19 09:33:24 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/12/01 17:38:49 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/12/05 15:33:04 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ int			init_loop(t_21sh *e)
 	e->curs.x += ft_strlen(e->prmpt);
 	e->beg_sel = -1;
 	e->end_sel = -1;
+	e->histpos = -1;
 	return (0);
 }
 
