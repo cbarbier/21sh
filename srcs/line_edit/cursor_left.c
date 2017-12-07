@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/20 11:03:54 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/12/01 18:01:41 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/12/07 15:10:16 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,25 +15,12 @@
 int				curs_left(t_21sh *e)
 {
 	ft_fprintf(e->ttyfd, "function cursor left\n");
-	if (e->curs.x == 1)
+	if (e->c.p == 0) 
 	{
-		e->curs.y--;
-		e->curs.x = e->co;
-		tputs(tgetstr("up", 0), 1, myput);
-		tputs(tgoto(tgetstr("RI", 0), e->co, e->co), 1, myput);
+		ft_fprintf(e->ttyfd, "start of line\n");
+		return (0);
 	}
-	else if (!(e->curs.y == e->curs.sy
-	&& e->curs.x == e->curs.sx + (int)ft_strlen(e->prmpt)))
-	{
-		e->curs.x--;
-		tputs(tgetstr("le", 0), 1, myput);
-	}
-	ft_fprintf(e->ttyfd, "CURSOR { %d : %d } START @ { %d : %d }\n",
-			e->curs.x, e->curs.y, e->curs.sx, e->curs.sy);
-	if (e->ln && e->beg_sel != -2)
-	{
-		e->beg_sel = -2;
-		return (refresh_line(e, e->line));
-	}
+	e->c.p--;
+	ft_fprintf(e->ttyfd, "CURSOR { %d : %d } POS [%d] START @ { %d : %d }\n", e->c.x, e->c.y, e->c.p, e->c.sx, e->c.sy);
 	return (0);
 }

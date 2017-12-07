@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/06 14:12:45 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/12/06 14:53:48 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/12/07 15:03:19 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,24 +48,8 @@
 # define HIST_LEN				5
 # define MAX(A, B)	((A) > (B) ? (A) : (B)) 
 # define MIN(A, B)	((A) < (B) ? (A) : (B)) 
-# define PRMPT(S, N) ft_memcpy(e->prmpt, S, N)
-typedef struct	s_hist
-{
-	t_list		*line;
-	int			sel;
-}				t_hist;
-typedef struct	s_input
-{
-	char		c;
-	int			del;
-}				t_input;
-typedef struct	s_cursor
-{
-	int		sx;
-	int		sy;
-	int		x;
-	int		y;
-}				t_cursor;
+# define RFRSH_LINE				0b1
+# define RFRSH_CURSOR			0b10
 struct	s_21sh;
 typedef struct	s_key_func
 {
@@ -73,27 +57,35 @@ typedef struct	s_key_func
 	int			(*f_is)(char *);
 	int			(*f)(struct s_21sh *);
 }				t_key_func;
+typedef struct	s_cursor
+{
+	int		p;
+	int		sx;
+	int		sy;
+	int		x;
+	int		y;
+}				t_cursor;
+typedef struct t_term
+{
+	int			li;
+	int			co;
+}				t_term;
+typedef struct	s_input
+{
+	char		*txt;
+	int			ln;
+}				t_input;
 typedef struct	s_21sh
 {
 	struct termios	term;
-	char			prmpt[9];
-	char			buff[MAX_KEY_STRING_LENGTH + 1];
-	char			*str;
-	t_list			*cmd;
-	t_list			*line;
-	t_list			*save;
-	t_list			*hist[HIST_LEN];
-	int				histpos;
 	int				ttyfd;
-	t_cursor		curs;
-	t_cursor		eol;
+	char			*prmpt;
+	t_term			t;
+	t_cursor		c;
+	t_input			in;
+	char			buff[MAX_KEY_STRING_LENGTH + 1];
 	int				run;
-	int				co;
-	int				li;
-	int				ln;
-	int				beg_sel;
-	int				end_sel;
-}					t_21sh;
+}				t_21sh;
 /*
 ** 	INIT FUNCTIONS
 */
@@ -101,7 +93,6 @@ int				init_termcaps(t_21sh *e);
 int				reset_terminal(t_21sh *e);
 int				init_21sh(t_21sh *e, int argc, char **argv);
 int				init_loop(t_21sh *e);
-int				next_loop(t_21sh *e, char *str, int (*f)(t_21sh*));
 t_21sh			*get_e(t_21sh *e);
 /*
 ** 	CORE FUNCTIONS
@@ -112,17 +103,13 @@ int				exit_21sh(t_21sh *e, int n);
 /*
 ** 	PARSING FUNCTIONS
 */
-int				quoting(t_list *l);
-char			*ft_lsttostr(t_list *l);
 /*
 ** 	EDIT LINE FUNCTIONS
 */
+int				refresh_line(t_21sh *e);
+int				keyfunc_wrapper(int (*f)(t_21sh*), t_21sh *e);
 int				key_apply_func(t_21sh *e);
 t_key_func		*key_tab(void);
-void			del_line(void *ct, size_t size);
-int				putline(t_21sh *e, t_list *l);
-int				refresh_line(t_21sh *e, t_list *l);
-int				get_eol(t_21sh *e);
 int				myput(int c);
 void			resize_handler(int);
 int				get_cursor_xy(t_21sh *e, t_cursor *curs);

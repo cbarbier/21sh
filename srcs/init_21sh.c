@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/19 09:33:24 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/12/06 14:54:59 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/12/07 16:17:52 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ int			get_cursor_xy(t_21sh *e, t_cursor *curs)
 		return (1);
 	while (i < ret && buff[i] != ';')
 		curs->y = 10 * curs->y + (int)buff[i++] - '0';
-	ft_fprintf(e->ttyfd, "cursor x[%d] y[%d]\n", curs->x, curs->y);
 	while (++i < ret && buff[i] != 'R')
 		curs->x = 10 * curs->x + (int)buff[i] - '0';
 	ft_fprintf(e->ttyfd, "cursor x[%d] y[%d]\n", curs->x, curs->y);
@@ -42,19 +41,14 @@ int			init_loop(t_21sh *e)
 		reset_terminal(e);
 		return (ft_fprintf(2, "Error: can't get term infos\n"));
 	}
-	ft_bzero(&e->curs, sizeof(t_cursor));
-	ft_lstdel(&e->line, del_line);
-	e->ln = 0;
-	if (get_cursor_xy(e, &e->curs))
-		return (ft_fprintf(2, "Error: can't get cursor\n"));
-	e->co = tgetnum("co");
-	e->li = tgetnum("li");
-	ft_fprintf(e->ttyfd, "term nb cols: %d   nb lines: %d\n", e->co, e->li);
+	ft_bzero(&e->c, sizeof(t_cursor));
+	e->in.ln = 0;
 	ft_printf("%s", e->prmpt);
-	e->curs.x += ft_strlen(e->prmpt);
-	e->beg_sel = -1;
-	e->end_sel = -1;
-	e->histpos = -1;
+	if (get_cursor_xy(e, &e->c))
+		return (ft_fprintf(2, "Error: can't get cursor\n"));
+	e->t.co = tgetnum("co");
+	e->t.li = tgetnum("li");
+	ft_fprintf(e->ttyfd, "term nb cols: %d   nb lines: %d\n", e->t.co, e->t.li);
 	return (0);
 }
 
@@ -73,9 +67,13 @@ int			init_21sh(t_21sh *e, int argc, char **argv)
 	get_e(e);
 	if (!(e->ttyfd = open(argv[argc - 1], O_WRONLY | O_NONBLOCK)))
 		return (ft_fprintf(2, "Error: can't open tty\n"));
-	PRMPT("21sh$ \0", 7);
+	if(!(e->in.txt = (char *)ft_memalloc(sizeof(char) * (e->t.li * e->t.co + 1))))
+	{
+		ft_fprintf(e->ttyfd, "Error: can't malloc input\n");
+		return (1);
+	}
 	e->run = 1;
+	e->prmpt = ft_strdup("21sh$ ");
 	ft_fprintf(e->ttyfd, "### WELCOME 21SH ###\n");
 	init_loop(e);
-	return (0);
 }

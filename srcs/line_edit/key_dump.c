@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/19 17:33:55 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/12/01 04:30:48 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/12/07 14:01:04 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ int				key_apply_func(t_21sh *e)
 	{
 		if (ftab[i].f_is(e->buff) == TRUE)
 		{
-			ftab[i].f(e);
+			keyfunc_wrapper(ftab[i].f, e);
 			return (ftab[i].k);
 		}
 		i++;
