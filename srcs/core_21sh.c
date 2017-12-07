@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/19 09:33:24 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/12/01 17:36:09 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/12/05 17:45:41 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ int				put_buff(t_21sh *e, char *buff)
 
 int				core_21sh(t_21sh *e)
 {
+	signal(SIGWINCH, resize_handler);
 	while (e->run)
 	{
 		ft_bzero(e->buff, MAX_KEY_STRING_LENGTH + 1);

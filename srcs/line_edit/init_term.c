@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/19 09:33:24 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/12/01 04:45:24 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/12/05 20:36:43 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,6 @@ int			init_termcaps(t_21sh *e)
 	e->term.c_cc[VTIME] = 0;
 	if (tcsetattr(0, TCSADRAIN, &e->term) == -1)
 		return (-1);
-	tputs(tgetstr("im", 0), 1, myput);
+//	tputs(tgetstr("im", 0), 1, myput);
 	return (0);
 }

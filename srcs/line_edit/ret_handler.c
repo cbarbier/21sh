@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/20 11:03:54 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/12/05 17:24:11 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/12/07 10:55:18 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ static int		to_history(t_21sh *e)
 	t_list			*l;
 
 	l = e->line;
-	e->line = 0;
 	if (!l)
 	{
 		ft_fprintf(e->ttyfd, "line empty =< not in history\n");
@@ -46,9 +45,27 @@ int				next_loop(t_21sh *e, char *str, int (*f)(t_21sh *))
 	return (ret);
 }
 
+static int		ret_handler_helper(t_21sh *e)
+{
+	int			i;
+
+	ft_lstpushback(&e->cmd, ft_lstcpy(e->line, sizeof(t_input)));
+	e->line = 0;
+	if (!(i = quoting(e->cmd)))
+	{
+		ft_fprintf(2, "\nquoting OK => parsing && executing the command\n");
+		ft_memcpy(e->prmpt, "21sh$ \0", 7);
+		return (0);
+	}
+	PRMPT("dq> \0", 5);
+	ft_printf("\n");
+	return (1);
+}
+
 int				ret_handler(t_21sh *e)
 {
 	ft_fprintf(e->ttyfd, "function ret handler\n");
-	next_loop(e, "parsing && processing the commands  blabla bla", to_history);
+	to_history(e);
+	next_loop(e, 0, ret_handler_helper);
 	return (0);
 }

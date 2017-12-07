@@ -6,13 +6,13 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/19 09:33:24 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/12/05 15:33:04 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/12/06 14:54:59 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "21sh.h"
 
-static int	get_cursor_xy(t_21sh *e, t_cursor *curs)
+int			get_cursor_xy(t_21sh *e, t_cursor *curs)
 {
 	int		i;
 	int		ret;
@@ -64,7 +64,7 @@ t_21sh		*get_e(t_21sh *ae)
 
 	if (ae)
 		e = ae;
-	return (ae);
+	return (e);
 }
 
 int			init_21sh(t_21sh *e, int argc, char **argv)
@@ -73,7 +73,7 @@ int			init_21sh(t_21sh *e, int argc, char **argv)
 	get_e(e);
 	if (!(e->ttyfd = open(argv[argc - 1], O_WRONLY | O_NONBLOCK)))
 		return (ft_fprintf(2, "Error: can't open tty\n"));
-	ft_strcpy(e->prmpt, "$prompt>");
+	PRMPT("21sh$ \0", 7);
 	e->run = 1;
 	ft_fprintf(e->ttyfd, "### WELCOME 21SH ###\n");
 	init_loop(e);

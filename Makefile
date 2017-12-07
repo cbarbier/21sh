@@ -6,7 +6,7 @@
 #    By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/03/04 14:32:18 by cbarbier          #+#    #+#              #
-#    Updated: 2017/11/30 13:49:02 by cbarbier         ###   ########.fr        #
+#    Updated: 2017/12/06 11:50:43 by cbarbier         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,7 +45,10 @@ SRCS 			= srcs/main.c \
 				  srcs/line_edit/do_cut.c \
 				  srcs/line_edit/do_copy.c \
 				  srcs/line_edit/do_paste.c \
-				  srcs/line_edit/selection.c
+				  srcs/line_edit/selection.c \
+				  srcs/line_edit/resize_handling.c \
+				  srcs/parser/tools.c \
+				  srcs/parser/quoting.c
 
 OBJS			= $(SRCS:.c=.o)
 

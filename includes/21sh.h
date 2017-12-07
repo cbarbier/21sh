@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/06 14:12:45 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/12/05 17:31:44 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/12/06 14:53:48 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@
 # define HIST_LEN				5
 # define MAX(A, B)	((A) > (B) ? (A) : (B)) 
 # define MIN(A, B)	((A) < (B) ? (A) : (B)) 
+# define PRMPT(S, N) ft_memcpy(e->prmpt, S, N)
 typedef struct	s_hist
 {
 	t_list		*line;
@@ -77,6 +78,8 @@ typedef struct	s_21sh
 	struct termios	term;
 	char			prmpt[9];
 	char			buff[MAX_KEY_STRING_LENGTH + 1];
+	char			*str;
+	t_list			*cmd;
 	t_list			*line;
 	t_list			*save;
 	t_list			*hist[HIST_LEN];
@@ -103,19 +106,26 @@ t_21sh			*get_e(t_21sh *e);
 /*
 ** 	CORE FUNCTIONS
 */
-int				myput(int c);
 
-t_key_func		*key_tab(void);
-int				key_apply_func(t_21sh *e);
 int				core_21sh(t_21sh *e);
-int				exit_21sh(t_21sh *e);
+int				exit_21sh(t_21sh *e, int n);
+/*
+** 	PARSING FUNCTIONS
+*/
+int				quoting(t_list *l);
+char			*ft_lsttostr(t_list *l);
+/*
+** 	EDIT LINE FUNCTIONS
+*/
+int				key_apply_func(t_21sh *e);
+t_key_func		*key_tab(void);
 void			del_line(void *ct, size_t size);
 int				putline(t_21sh *e, t_list *l);
 int				refresh_line(t_21sh *e, t_list *l);
 int				get_eol(t_21sh *e);
-/*
-** 	EDIT LINE FUNCTIONS
-*/
+int				myput(int c);
+void			resize_handler(int);
+int				get_cursor_xy(t_21sh *e, t_cursor *curs);
 int				print_line(char *line, int i, int len);
 int				curs_right(t_21sh *e);
 int				curs_left(t_21sh *e);

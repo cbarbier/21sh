@@ -1,43 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fr33.c                                             :+:      :+:    :+:   */
+/*   tools.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/21 16:52:15 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/12/05 18:14:30 by cbarbier         ###   ########.fr       */
+/*   Created: 2017/12/06 11:45:44 by cbarbier          #+#    #+#             */
+/*   Updated: 2017/12/06 11:49:36 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "21sh.h"
 
-void				del_line(void *ct, size_t size)
+char			*ft_lsttostr(t_list *l)
 {
-	(void)size;
-	ft_memdel(&ct);
-}
+	int				i;
+	int				n;
+	char			*str;
+	t_input			*in;
 
-/*
-** dont forget to free the prmpt;
-*/
-
-static int			fr33(t_21sh *e)
-{
-	int			i;
-
-	ft_lstdel(&e->line, del_line);
-	ft_lstdel(&e->save, del_line);
+	n = ft_lstlen(l);
+	if (!n || !(str = ft_strnew(n)))
+		return (0);
 	i = 0;
-	while (i < HIST_LEN)
-		ft_lstdel(&e->hist[i++], del_line);
-	return (0);
-}
-
-int					exit_21sh(t_21sh *e, int n)
-{
-	reset_terminal(e);
-	fr33(e);
-	exit(n);
-	return (0);
+	while (l)
+	{
+		in = (t_input *)l->content;
+		str[i++] = in->c;
+		l = l->next;
+	}
+	return (str);
 }

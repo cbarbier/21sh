@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/20 11:03:54 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/12/05 17:31:02 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/12/06 08:25:55 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ int				ins_char(t_21sh *e)
 	ft_fprintf(e->ttyfd, "END x %d y %d\n",
 			((int)ft_strlen(e->prmpt) + e->curs.sx + e->ln)
 			% e->co, e->curs.sy + e->ln / e->co);
-	if (!(new = ft_lstnew(e->buff, sizeof(t_input))))
+	if (!(new = ft_lstnew(&in, sizeof(t_input))))
 		return (1);
 	ft_lstaddat(&e->line, new, i);
 	e->ln++;

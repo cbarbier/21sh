@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/20 11:03:54 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/11/21 17:42:01 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/12/05 18:07:03 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,6 @@
 int				ctrl_d_handler(t_21sh *e)
 {
 	ft_fprintf(e->ttyfd, "function ctrl d handler\n");
-	exit_21sh(e);
+	exit_21sh(e, 1);
 	return (0);
 }
