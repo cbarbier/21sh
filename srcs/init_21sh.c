@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/19 09:33:24 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/12/07 16:17:52 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/12/08 15:48:16 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,8 @@ int			get_cursor_xy(t_21sh *e, t_cursor *curs)
 	while (++i < ret && buff[i] != 'R')
 		curs->x = 10 * curs->x + (int)buff[i] - '0';
 	ft_fprintf(e->ttyfd, "cursor x[%d] y[%d]\n", curs->x, curs->y);
-	curs->sx = curs->x;
-	curs->sy = curs->y;
+	curs->sx = --curs->x;
+	curs->sy = --curs->y;
 	return (0);
 }
 
@@ -42,12 +42,9 @@ int			init_loop(t_21sh *e)
 		return (ft_fprintf(2, "Error: can't get term infos\n"));
 	}
 	ft_bzero(&e->c, sizeof(t_cursor));
-	e->in.ln = 0;
 	ft_printf("%s", e->prmpt);
 	if (get_cursor_xy(e, &e->c))
 		return (ft_fprintf(2, "Error: can't get cursor\n"));
-	e->t.co = tgetnum("co");
-	e->t.li = tgetnum("li");
 	ft_fprintf(e->ttyfd, "term nb cols: %d   nb lines: %d\n", e->t.co, e->t.li);
 	return (0);
 }
@@ -65,15 +62,18 @@ int			init_21sh(t_21sh *e, int argc, char **argv)
 {
 	ft_bzero(e, sizeof(t_21sh));
 	get_e(e);
-	if (!(e->ttyfd = open(argv[argc - 1], O_WRONLY | O_NONBLOCK)))
+	if ((e->ttyfd = open(argv[argc - 1], O_WRONLY | O_NONBLOCK)) == -1)
 		return (ft_fprintf(2, "Error: can't open tty\n"));
-	if(!(e->in.txt = (char *)ft_memalloc(sizeof(char) * (e->t.li * e->t.co + 1))))
+	e->prmpt = ft_strdup("21sh$ ");
+	init_loop(e);
+	e->t.co = tgetnum("co");
+	e->t.li = tgetnum("li");
+	if(!(e->in.txt = (char *)ft_strnew(e->t.li * e->t.co)))
 	{
 		ft_fprintf(e->ttyfd, "Error: can't malloc input\n");
 		return (1);
 	}
 	e->run = 1;
-	e->prmpt = ft_strdup("21sh$ ");
 	ft_fprintf(e->ttyfd, "### WELCOME 21SH ###\n");
-	init_loop(e);
+	return (0);
 }

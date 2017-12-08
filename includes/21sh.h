@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/06 14:12:45 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/12/07 15:03:19 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/12/07 17:22:04 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,11 +79,11 @@ typedef struct	s_21sh
 {
 	struct termios	term;
 	int				ttyfd;
+	char			buff[MAX_KEY_STRING_LENGTH + 1];
 	char			*prmpt;
 	t_term			t;
 	t_cursor		c;
 	t_input			in;
-	char			buff[MAX_KEY_STRING_LENGTH + 1];
 	int				run;
 }				t_21sh;
 /*
