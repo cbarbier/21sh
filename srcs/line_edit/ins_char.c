@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/20 11:03:54 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/12/06 08:25:55 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/12/08 18:40:33 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,7 @@ int				get_eol(t_21sh *e)
 	int			n;
 	int			d;
 
-	n = e->ln + (int)ft_strlen(e->prmpt);
-	d = e->curs.sy + (n / e->co);
+	d = e->curs.sy + ((e->curs.sx + e->ln) / e->co);
 	n = e->curs.sy;
 	tputs(tgetstr("cd", 0), 1, myput);
 	ft_fprintf(e->ttyfd, "gotta jump %d lines | height : %d\n", d, d - n);
@@ -29,15 +28,14 @@ int				get_eol(t_21sh *e)
 	}
 	while (n++ < d)
 	{
-		write(1, "\n", 1);
+		tputs(tgetstr("do", 0), 1, myput);
 		if (n > e->li)
 		{
 			e->curs.sy--;
 			e->curs.y--;
 		}
 	}
-	tputs(tgoto(tgetstr("cm", 0), e->curs.sx +
-				ft_strlen(e->prmpt) - 1, e->curs.sy - 1), 1, myput);
+	tputs(tgoto(tgetstr("cm", 0), e->curs.sx - 1, e->curs.sy - 1), 1, myput);
 	return (d);
 }
 
@@ -52,7 +50,7 @@ int				putline(t_21sh *e, t_list *l)
 		in = (t_input *)l->content;
 		if (e->beg_sel != -2 && i >= MIN(e->beg_sel, e->end_sel)
 				&& i <= MAX(e->beg_sel, e->end_sel))
-			ft_printf("{red}%c{no}", in->c);
+			ft_printf("\033[35;46m%c{no}", in->c);
 		else
 			write(1, &in->c, 1);
 		i++;
@@ -89,12 +87,11 @@ int				ins_char(t_21sh *e)
 
 	in.c = *e->buff;
 	in.del = 0;
-	i = e->curs.x - ft_strlen(e->prmpt) - 1 +
-		(e->curs.y - e->curs.sy) * e->co;
+	i = e->curs.x - e->curs.sx + (e->curs.y - e->curs.sy) * e->co;
 	ft_fprintf(e->ttyfd, "function ins char {{ %c }} at %i\n",
 			*e->buff, i);
 	ft_fprintf(e->ttyfd, "END x %d y %d\n",
-			((int)ft_strlen(e->prmpt) + e->curs.sx + e->ln)
+			(e->curs.sx + e->ln)
 			% e->co, e->curs.sy + e->ln / e->co);
 	if (!(new = ft_lstnew(&in, sizeof(t_input))))
 		return (1);

@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/20 11:03:54 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/12/05 17:27:17 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/12/08 18:21:57 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,8 +61,8 @@ int				do_cut(t_21sh *e)
 	ft_lstdel(&e->save, del_line);
 	ft_fprintf(e->ttyfd, "LAST LEN  %d\n", e->ln);
 	n = MIN(e->beg_sel, e->end_sel);
-	e->curs.x = (n + (int)ft_strlen(e->prmpt) + 1) % e->co;
-	e->curs.y = e->curs.sy + (n + (int)ft_strlen(e->prmpt)) / e->co;
+	e->curs.x = (e->curs.sx + n) % e->co;
+	e->curs.y = e->curs.sy + (e->curs.sx + n) / e->co;
 	ft_fprintf(e->ttyfd, "function do_cut reset cursor  %d\n", n);
 	ft_fprintf(e->ttyfd, "deleting from  %d  to  %d\n",
 			n, MAX(e->beg_sel, e->end_sel));

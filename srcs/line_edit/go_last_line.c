@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/20 11:03:54 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/12/01 18:06:14 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/12/08 16:29:36 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int				go_last_line(t_21sh *e)
 {
 	ft_fprintf(e->ttyfd, "function go last line\n");
-	if (e->curs.y == e->curs.sy + 1 && e->curs.x <= (int)ft_strlen(e->prmpt))
+	if (e->curs.y == e->curs.sy + 1 && e->curs.x <= e->curs.sx)
 	{
 		ft_fprintf(e->ttyfd, "just under the prompt => can't move");
 		return (0);

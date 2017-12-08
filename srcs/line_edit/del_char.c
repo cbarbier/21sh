@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/20 11:03:54 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/12/01 04:38:06 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/12/08 16:25:02 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ int				del_char(t_21sh *e)
 	t_cursor		data;
 
 	if (e->curs.y == e->curs.sy
-	&& e->curs.x == e->curs.sx + (int)ft_strlen(e->prmpt))
+	&& e->curs.x == e->curs.sx)
 	{
 		ft_fprintf(e->ttyfd, "start position => no deletion\n");
 		return (0);

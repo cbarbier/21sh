@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/20 11:03:54 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/12/01 04:42:22 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/12/08 17:57:36 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,7 @@ int				go_last_word(t_21sh *e)
 	int				n;
 	int				i;
 
-	n = e->curs.x - (int)ft_strlen(e->prmpt) - 1 +
-		(e->curs.y - e->curs.sy) * e->co;
+	n = e->curs.x - e->curs.sx + (e->curs.y - e->curs.sy) * e->co;
 	ft_fprintf(e->ttyfd, "function  go last word cursor at n=%d\n", n);
 	if ((i = lst_last_word(e, e->line, n)) == -1)
 	{
@@ -52,8 +51,8 @@ int				go_last_word(t_21sh *e)
 		return (0);
 	}
 	ft_fprintf(e->ttyfd, "last word indice i=%d\n", i);
-	e->curs.x = ((int)ft_strlen(e->prmpt) + i) % e->co;
-	e->curs.y = e->curs.sy + ((int)ft_strlen(e->prmpt) + i) / e->co;
+	e->curs.x = (e->curs.sx - 1 + i) % e->co;
+	e->curs.y = e->curs.sy + (e->curs.sx - 1 + i) / e->co;
 	tputs(tgoto(tgetstr("cm", 0), e->curs.x - 1, e->curs.y - 1), 1, myput);
 	if (e->beg_sel != -2)
 	{

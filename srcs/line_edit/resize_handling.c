@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/05 17:41:37 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/12/06 14:54:50 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/12/08 16:41:58 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,7 @@ void				resize_handler(int sig)
 	e->co = tgetnum("co");
 	e->li = tgetnum("li");
 	ft_fprintf(e->ttyfd, "ater term cols: %d lines: %d\n", e->co, e->li);
-	if (e->co < (int)ft_strlen(e->prmpt)
-	|| e->li < ((int)ft_strlen(e->prmpt) + e->ln) / e->co)
+	if (e->li < e->ln / e->co)
 	{
 		ft_fprintf(1, "Error: 21sh: terminal too tiny \n");
 		exit_21sh(e, 1);

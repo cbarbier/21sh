@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/20 11:03:54 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/12/01 18:06:36 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/12/08 18:08:59 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,14 +18,13 @@ int				go_next_line(t_21sh *e)
 	int				end;
 
 	ft_fprintf(e->ttyfd, "function go next line\n");
-	if (e->curs.y < (lstln = e->curs.sy +
-				((int)ft_strlen(e->prmpt) + e->ln) / e->co))
+	if (e->curs.y < (lstln = e->curs.sy + (e->curs.sx + e->ln) / e->co))
 	{
 		e->curs.y++;
 		tputs(tgoto(tgetstr("DO", 0), 1, 0), 1, myput);
 		if (e->curs.y == lstln)
 		{
-			end = ((int)ft_strlen(e->prmpt) + e->ln + 1) % e->co;
+			end = (e->curs.sx + e->ln ) % e->co;
 			if (end < e->curs.x)
 				go_end(e);
 		}

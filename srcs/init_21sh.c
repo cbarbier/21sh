@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/19 09:33:24 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/12/06 14:54:59 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/12/08 16:22:41 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,13 +45,12 @@ int			init_loop(t_21sh *e)
 	ft_bzero(&e->curs, sizeof(t_cursor));
 	ft_lstdel(&e->line, del_line);
 	e->ln = 0;
+	ft_printf("%s", e->prmpt);
 	if (get_cursor_xy(e, &e->curs))
 		return (ft_fprintf(2, "Error: can't get cursor\n"));
 	e->co = tgetnum("co");
 	e->li = tgetnum("li");
 	ft_fprintf(e->ttyfd, "term nb cols: %d   nb lines: %d\n", e->co, e->li);
-	ft_printf("%s", e->prmpt);
-	e->curs.x += ft_strlen(e->prmpt);
 	e->beg_sel = -1;
 	e->end_sel = -1;
 	e->histpos = -1;

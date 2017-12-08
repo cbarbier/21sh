@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/20 11:03:54 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/12/05 17:37:26 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/12/08 17:29:33 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int				curs_right(t_21sh *e)
 {
 	int				i;
 
-	i = e->curs.x - ft_strlen(e->prmpt) - 1 + (e->curs.y - e->curs.sy) * e->co;
+	i = e->curs.x - e->curs.sx + (e->curs.y - e->curs.sy) * e->co;
 	if ((int)ft_lstlen(e->line) == e->ln && i == e->ln)
 		ft_fprintf(e->ttyfd, "|||||||||||||||end of line reached\n");
 	else

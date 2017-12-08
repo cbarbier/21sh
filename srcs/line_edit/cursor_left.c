@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/20 11:03:54 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/12/01 18:01:41 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/12/08 17:44:29 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int				curs_left(t_21sh *e)
 {
 	ft_fprintf(e->ttyfd, "function cursor left\n");
-	if (e->curs.x == 1)
+	if (e->curs.x == 1 && e->curs.y != e->curs.sy)
 	{
 		e->curs.y--;
 		e->curs.x = e->co;
@@ -23,7 +23,7 @@ int				curs_left(t_21sh *e)
 		tputs(tgoto(tgetstr("RI", 0), e->co, e->co), 1, myput);
 	}
 	else if (!(e->curs.y == e->curs.sy
-	&& e->curs.x == e->curs.sx + (int)ft_strlen(e->prmpt)))
+	&& e->curs.x == e->curs.sx))
 	{
 		e->curs.x--;
 		tputs(tgetstr("le", 0), 1, myput);
