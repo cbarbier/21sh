@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/20 11:03:54 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/12/08 18:21:57 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/12/11 21:42:42 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,7 @@ static void		store_save(t_21sh *e, t_list *l, int a, int b)
 	t_input		*in;
 
 	i = 0;
-	if (e->beg_sel > e->end_sel)
-	{
-		a++;
-		b++;
-	}
+	b++;
 	ft_fprintf(e->ttyfd, "a=%d &&&& b=%d\n", a, b);
 	while (l && ++i <= a)
 		l = l->next;
@@ -74,5 +70,5 @@ int				do_cut(t_21sh *e)
 	ft_fprintf(e->ttyfd, "NEW LEN  %d\n", e->ln);
 	tputs(tgoto(tgetstr("cm", 0), e->curs.x - 1, e->curs.y - 1), 1, myput);
 	e->beg_sel = -2;
-	return (refresh_line(e, e->line));
+	return (0);
 }

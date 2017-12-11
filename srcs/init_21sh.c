@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/19 09:33:24 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/12/08 16:22:41 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/12/11 20:32:47 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,8 @@ int			init_loop(t_21sh *e)
 	e->co = tgetnum("co");
 	e->li = tgetnum("li");
 	ft_fprintf(e->ttyfd, "term nb cols: %d   nb lines: %d\n", e->co, e->li);
-	e->beg_sel = -1;
-	e->end_sel = -1;
+	e->beg_sel = -2;
+	e->end_sel = -2;
 	e->histpos = -1;
 	return (0);
 }

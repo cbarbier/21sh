@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/20 11:03:54 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/12/08 16:28:15 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/12/11 21:25:59 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int				go_home(t_21sh *e)
 	if (e->beg_sel != -2)
 	{
 		e->beg_sel = -2;
-		return (refresh_line(e, e->line));
+		return (0);
 	}
 	return (0);
 }

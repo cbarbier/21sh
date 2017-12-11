@@ -6,11 +6,25 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/20 11:03:54 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/12/08 18:40:33 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/12/11 21:30:11 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "21sh.h"
+
+int				refresh_line(t_21sh *e, t_list *l)
+{
+	e->ln = ft_lstlen(e->line);
+	ft_fprintf(e->ttyfd, "selecting DBUG beg=%d & end=%d\n",
+			e->beg_sel, e->end_sel);
+	tputs(tgoto(tgetstr("cm", 0), e->curs.sx - 1, e->curs.sy - 1), 1, myput);
+	if (get_eol(e) == -1)
+		return (-1);
+	tputs(tgetstr("cd", 0), 1, myput);
+	putline(e, l);
+	tputs(tgoto(tgetstr("cm", 0), e->curs.x - 1, e->curs.y - 1), 1, myput);
+	return (0);
+}
 
 int				get_eol(t_21sh *e)
 {
@@ -97,10 +111,10 @@ int				ins_char(t_21sh *e)
 		return (1);
 	ft_lstaddat(&e->line, new, i);
 	e->ln++;
+	e->beg_sel = -2;
 	if (!(i = refresh_line(e, e->line)))
 		curs_right(e);
 	ft_fprintf(e->ttyfd, "CURSOR { %d : %d } START @ { %d : %d }\n",
 			e->curs.x, e->curs.y, e->curs.sx, e->curs.sy);
-	e->beg_sel = -2;
-	return (i);
+	return (1);
 }

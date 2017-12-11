@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/20 11:03:54 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/12/01 04:38:45 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/12/11 21:46:51 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,7 @@ t_list			*ft_lstsub(t_21sh *e, t_list *l, int a, int b)
 
 	i = 0;
 	sub = 0;
-	if (e->beg_sel > e->end_sel)
-	{
-		a++;
-		b++;
-	}
+	b++;
 	ft_fprintf(e->ttyfd, "a=%d &&&& b=%d\n", a, b);
 	while (l && ++i <= a)
 		l = l->next;
@@ -56,11 +52,13 @@ int				do_copy(t_21sh *e)
 					MAX(e->beg_sel, e->end_sel))))
 		return (0);
 	l = e->save;
-	ft_fprintf(e->ttyfd, "e->save : \n");
+	ft_fprintf(e->ttyfd, "e->save : ");
 	while (l)
 	{
 		ft_fprintf(e->ttyfd, "%c ", ((t_input *)(l->content))->c);
 		l = l->next;
 	}
+	ft_fprintf(e->ttyfd, "\n");
+	e->beg_sel = -2;
 	return (0);
 }

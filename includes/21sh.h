@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/06 14:12:45 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/12/06 14:53:48 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/12/11 21:23:29 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,11 @@
 # include <termios.h>
 # include <signal.h>	  
 # include <math.h>
+# define DEBUG					1
 # define TRUE					1
 # define FALSE					0
-# define DEBUG					1
 # define MAX_KEY_STRING_LENGTH	9
-# define NB_KEYS				21
+# define NB_KEYS				18
 # define KEY_CODE_CTRL_D		0
 # define KEY_CODE_HOME			1
 # define KEY_CODE_END			2
@@ -41,10 +41,7 @@
 # define KEY_CODE_ALT_X			14
 # define KEY_CODE_ALT_C			15
 # define KEY_CODE_ALT_V			16
-# define KEY_CODE_SHFT_UP		17
-# define KEY_CODE_SHFT_DOWN		18
-# define KEY_CODE_SHFT_LEFT		19
-# define KEY_CODE_SHFT_RIGHT	20
+# define KEY_CODE_ALT_S			17
 # define HIST_LEN				5
 # define MAX(A, B)	((A) > (B) ? (A) : (B)) 
 # define MIN(A, B)	((A) < (B) ? (A) : (B)) 
@@ -117,6 +114,7 @@ char			*ft_lsttostr(t_list *l);
 /*
 ** 	EDIT LINE FUNCTIONS
 */
+int				wrapper(int (*f)(t_21sh *e), t_21sh *e);
 int				key_apply_func(t_21sh *e);
 t_key_func		*key_tab(void);
 void			del_line(void *ct, size_t size);
@@ -150,6 +148,7 @@ int				select_right(t_21sh *e);
 int				select_left(t_21sh *e);
 int				select_up(t_21sh *e);
 int				select_down(t_21sh *e);
+int				select_mode(t_21sh *e);
 /*
 ** 	TEST KEY FUNCTIONS
 */
@@ -172,10 +171,7 @@ int				key_is_char(char *buff);
 int				key_is_alt_x(char *buff);
 int				key_is_alt_c(char *buff);
 int				key_is_alt_v(char *buff);
-int				key_is_shft_up(char *buff);
-int				key_is_shft_down(char *buff);
-int				key_is_shft_left(char *buff);
-int				key_is_shft_right(char *buff);
+int				key_is_alt_s(char *buff);
 /*
 ** 	DEBUG FUNCTIONS
 */

@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/19 17:33:55 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/12/01 04:30:48 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/12/11 21:25:18 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,7 @@ t_key_func		*key_tab(void)
 		{KEY_CODE_ALT_X, &key_is_alt_x, &do_cut},
 		{KEY_CODE_ALT_C, &key_is_alt_c, &do_copy},
 		{KEY_CODE_ALT_V, &key_is_alt_v, &do_paste},
-		{KEY_CODE_SHFT_UP, &key_is_shft_up, &select_up},
-		{KEY_CODE_SHFT_DOWN, &key_is_shft_down, &select_down},
-		{KEY_CODE_SHFT_LEFT, &key_is_shft_left, &select_left},
-		{KEY_CODE_SHFT_RIGHT, &key_is_shft_right, &select_right},
+		{KEY_CODE_ALT_S, &key_is_alt_s, &select_mode}
 	};
 
 	return (ftab);
@@ -52,7 +49,7 @@ int				key_apply_func(t_21sh *e)
 	{
 		if (ftab[i].f_is(e->buff) == TRUE)
 		{
-			ftab[i].f(e);
+			wrapper(ftab[i].f, e);
 			return (ftab[i].k);
 		}
 		i++;

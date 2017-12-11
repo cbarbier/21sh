@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/20 11:03:54 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/12/07 10:55:18 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/12/11 21:48:22 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ int				ret_handler(t_21sh *e)
 {
 	ft_fprintf(e->ttyfd, "function ret handler\n");
 	to_history(e);
+	go_end(e);
 	next_loop(e, 0, ret_handler_helper);
 	return (0);
 }
