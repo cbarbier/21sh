@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/20 11:03:54 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/12/08 16:25:02 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/12/12 01:34:54 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,7 @@ int				del_char(t_21sh *e)
 		return (0);
 	}
 	data.x = 1;
-	data.y = e->curs.x - ft_strlen(e->prmpt) - 1 +
-		(e->curs.y - e->curs.sy) * e->co;
+	data.y = e->n;
 	ft_lstfilter(&e->line, del_line, to_del, (void *)&data);
 	ft_fprintf(e->ttyfd, "function del char\n");
 	curs_left(e);

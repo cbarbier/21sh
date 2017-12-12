@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/06 14:12:45 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/12/11 21:23:29 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/12/11 23:40:55 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,8 @@ typedef struct	s_input
 {
 	char		c;
 	int			del;
+	int			x;
+	int			y;
 }				t_input;
 typedef struct	s_cursor
 {
@@ -77,6 +79,7 @@ typedef struct	s_21sh
 	char			buff[MAX_KEY_STRING_LENGTH + 1];
 	char			*str;
 	t_list			*cmd;
+	int				n;
 	t_list			*line;
 	t_list			*save;
 	t_list			*hist[HIST_LEN];
@@ -114,6 +117,7 @@ char			*ft_lsttostr(t_list *l);
 /*
 ** 	EDIT LINE FUNCTIONS
 */
+t_input			*get_input(t_list *l, int n);
 int				wrapper(int (*f)(t_21sh *e), t_21sh *e);
 int				key_apply_func(t_21sh *e);
 t_key_func		*key_tab(void);

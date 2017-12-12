@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/20 11:03:54 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/12/11 21:38:43 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/12/12 00:44:02 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,22 +14,18 @@
 
 int				curs_left(t_21sh *e)
 {
+	int			i;
+
 	ft_fprintf(e->ttyfd, "function cursor left\n");
-	if (e->curs.x == 1 && e->curs.y != e->curs.sy)
+	i = e->curs.x - e->curs.sx + (e->curs.y - e->curs.sy) * e->co;
+	if (!e->n)
 	{
-		e->curs.y--;
-		e->curs.x = e->co;
-		tputs(tgetstr("up", 0), 1, myput);
-		tputs(tgoto(tgetstr("RI", 0), e->co, e->co), 1, myput);
+		ft_fprintf(e->ttyfd, "cant move cursor left\n");
 	}
-	else if (!(e->curs.y == e->curs.sy
-	&& e->curs.x == e->curs.sx))
-	{
-		e->curs.x--;
-		tputs(tgetstr("le", 0), 1, myput);
-	}
-	ft_fprintf(e->ttyfd, "CURSOR { %d : %d } START @ { %d : %d }\n",
-			e->curs.x, e->curs.y, e->curs.sx, e->curs.sy);
+	else
+		e->n--;
+	ft_fprintf(e->ttyfd, "CURSOR { %d : %d } START @ { %d : %d } n %d\n",
+			e->curs.x, e->curs.y, e->curs.sx, e->curs.sy, e->n);
 	if (e->beg_sel != -2)
 		select_left(e);
 	return (0);
