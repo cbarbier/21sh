@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/20 11:03:54 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/12/12 01:16:43 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/12/12 17:03:03 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static int		make_room(t_21sh *e, t_list *l)
 	n = 0;
 	while (n <= e->ln)
 	{
-		ft_fprintf(e->ttyfd, "make room n %d / %d\n", n, e->ln);
+//		ft_fprintf(e->ttyfd, "TEST n %d / %d\n", n, e->ln);
 		if (l)
 		{
 		in = (t_input *)l->content;

@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/20 11:03:54 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/12/11 21:27:24 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/12/12 18:04:02 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,31 +17,29 @@ int				lst_next_word(t_21sh *e, t_list *l, int n)
 	int			i;
 
 	i = 0;
-	while (l && (i++ < n || !ft_strchr(" \t", ((t_input *)l->content)->c)))
+	while (l && (i++ < n || !ft_strchr(" \n\t", ((t_input *)l->content)->c)))
 		l = l->next;
-	ft_fprintf(e->ttyfd, "end of curent word i=%d\n", i);
-	while (l && ft_strchr(" \t", ((t_input *)l->content)->c) && i++)
+	if (l)
+		l = l->next;
+	ft_fprintf(e->ttyfd, "end of curent lien i=%d\n", i);
+	while (l && ft_strchr(" \t\n", ((t_input *)l->content)->c) && i++)
 		l = l->next;
 	return (l ? i : -1);
 }
 
 int				go_next_word(t_21sh *e)
 {
-	int				n;
 	int				i;
 
-	n = e->curs.x - e->curs.sx + (e->curs.y - e->curs.sy) * e->co;
-	ft_fprintf(e->ttyfd, "function  go next word cursor at n=%d\n", n);
-	if ((i = lst_next_word(e, e->line, n)) == -1)
+	ft_fprintf(e->ttyfd, "function  go next line cursor at n=%d\n", e->n);
+	if ((i = lst_next_word(e, e->line, e->n)) == -1)
 	{
-		ft_fprintf(e->ttyfd, "can't find next word\n");
+		ft_fprintf(e->ttyfd, "can't find next line\n");
 		return (0);
 	}
-	ft_fprintf(e->ttyfd, "next word indice i=%d\n", i);
-	e->curs.x = (e->curs.sx - 1 + i) % e->co;
-	e->curs.y = e->curs.sy + (e->curs.sx - 1 + i) / e->co;
-	tputs(tgoto(tgetstr("cm", 0), e->curs.x - 1, e->curs.y - 1), 1, myput);
+	ft_fprintf(e->ttyfd, "next line indice i=%d\n", i);
+	e->n = i;
 	if (e->beg_sel != -2)
-		e->beg_sel = -2;
+		e->end_sel = i;
 	return (0);
 }

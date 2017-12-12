@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/20 11:03:54 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/12/12 01:47:40 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/12/12 16:14:04 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,11 @@ int				select_mode(t_21sh *e)
 	if (!e->ln || e->beg_sel != -2)
 	{
 		e->beg_sel = -2;
-		return (refresh_line(e, e->line));
+		return (0);
 	}
 	e->beg_sel = e->n;
 	e->end_sel = e->beg_sel;
-	return (refresh_line(e, e->line));
+	return (0);
 }
 
 int				select_up(t_21sh *e)
@@ -41,7 +41,7 @@ int				select_up(t_21sh *e)
 		go_last_line(e);
 		e->beg_sel = save_beg;
 		e->end_sel = e->n;
-		return (refresh_line(e, e->line));
+		return (0);
 	}
 	return (0);
 }
@@ -62,7 +62,7 @@ int				select_down(t_21sh *e)
 		go_next_line(e);
 		e->beg_sel = save_beg;
 		e->end_sel = e->n;
-		return (refresh_line(e, e->line));
+		return (0);
 	}
 	return (0);
 }
@@ -91,5 +91,5 @@ int				select_left(t_21sh *e)
 	}
 	else
 		e->end_sel = e->n;
-	return (refresh_line(e, e->line));
+	return (0);
 }
