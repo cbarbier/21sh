@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/20 11:03:54 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/12/12 17:03:03 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/12/13 22:15:59 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,16 +24,17 @@ static int		make_room(t_21sh *e, t_list *l)
 		ft_fprintf(e->ttyfd, "command line way too big\n");
 		return (-1);
 	}
-	i = e->curs.sx;
-	y = e->curs.sy;
+	i = 0;
+	y = 0;
 	n = 0;
 	while (n <= e->ln)
 	{
-//		ft_fprintf(e->ttyfd, "TEST n %d / %d\n", n, e->ln);
+		//ft_fprintf(e->ttyfd, "TEST n %d / %d ", n, e->ln);
+		//ft_fprintf(e->ttyfd, "set cursor %d : %d\n", i, y);
 		if (l)
 		{
 		in = (t_input *)l->content;
-		in->x = i;
+		in->x = (!y ? e->curs.sx : 0) + i;
 		in->y = y;
 		}
 		else
@@ -41,13 +42,13 @@ static int		make_room(t_21sh *e, t_list *l)
 		if (n == e->n)
 		{
 			ft_fprintf(e->ttyfd, "set cursor %d : %d\n", i, y);
-			e->curs.x = i;
-			e->curs.y = y;
+			e->curs.x = (!y ? e->curs.sx : 0) + i;
+			e->curs.y = e->curs.sy + y;
 		}
 		if (i++ == e->co || (in && in->c == '\n'))
 		{
 			y++;
-			if (y > e->li)
+			if (e->curs.sy + y > e->li)
 			{
 				e->curs.sy--;
 				e->curs.y--;
@@ -59,6 +60,8 @@ static int		make_room(t_21sh *e, t_list *l)
 		if (l)
 			l = l->next;
 	}
+	e->end.x = (!y ? e->curs.sx : 0) + i;
+	e->end.y = y;
 	tputs(tgoto(tgetstr("cm", 0), e->curs.sx - 1, e->curs.sy - 1), 1, myput);
 	return (0);
 }
@@ -66,7 +69,7 @@ static int		make_room(t_21sh *e, t_list *l)
 int				refresh_line(t_21sh *e, t_list *l)
 {
 	e->ln = ft_lstlen(e->line);
-	ft_fprintf(e->ttyfd, "selecting DBUG beg=%d & end=%d\n",
+	ft_fprintf(e->ttyfd, "refresh line DBUG e->n %d beg=%d & end=%d\n", e->n,
 			e->beg_sel, e->end_sel);
 	tputs(tgoto(tgetstr("cm", 0), e->curs.sx - 1, e->curs.sy - 1), 1, myput);
 	if (make_room(e, l) == -1)

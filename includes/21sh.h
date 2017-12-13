@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/06 14:12:45 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/12/11 23:40:55 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/12/13 20:42:24 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,7 @@ typedef struct	s_21sh
 	t_list			*cmd;
 	int				n;
 	t_list			*line;
+	t_input			end;
 	t_list			*save;
 	t_list			*hist[HIST_LEN];
 	int				histpos;

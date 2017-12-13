@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/20 11:03:54 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/12/08 18:20:35 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/12/13 19:48:55 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,6 @@ int				do_paste(t_21sh *e)
 	n = ft_lstlen(e->save);
 	if ((i = refresh_line(e, e->line)))
 		return (i);
-	while (n--)
-		curs_right(e);
+	e->n += n;
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/20 11:03:54 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/12/12 01:45:11 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/12/13 19:38:58 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,6 @@ static int		del_cut(void *ct, void *d)
 
 int				do_cut(t_21sh *e)
 {
-	int				n;
 	t_list			*l;
 
 	if (e->beg_sel == -2)
@@ -56,13 +55,11 @@ int				do_cut(t_21sh *e)
 	}
 	ft_lstdel(&e->save, del_line);
 	ft_fprintf(e->ttyfd, "LAST LEN  %d\n", e->ln);
-	n = MIN(e->beg_sel, e->end_sel);
-	e->curs.x = (e->curs.sx + n) % e->co;
-	e->curs.y = e->curs.sy + (e->curs.sx + n) / e->co;
-	ft_fprintf(e->ttyfd, "function do_cut reset cursor  %d\n", n);
+	e->n = MIN(e->beg_sel, e->end_sel);
+	ft_fprintf(e->ttyfd, "function do_cut reset cursor  %d\n", e->n);
 	ft_fprintf(e->ttyfd, "deleting from  %d  to  %d\n",
-			n, MAX(e->beg_sel, e->end_sel));
-	store_save(e, e->line, n, MAX(e->beg_sel, e->end_sel));
+			e->n, MAX(e->beg_sel, e->end_sel));
+	store_save(e, e->line, e->n, MAX(e->beg_sel, e->end_sel));
 	ft_lstfilter(&e->line, del_line, del_cut, 0);
 	e->ln = ft_lstlen(e->line);
 	ft_fprintf(e->ttyfd, "save list :\n");
