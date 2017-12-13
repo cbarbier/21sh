@@ -6,11 +6,17 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/05 17:41:37 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/12/08 16:41:58 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/12/14 00:37:02 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "21sh.h"
+
+void				too_big_line(t_21sh *e)
+{
+	(void)e;
+	return ;
+}
 
 void				resize_handler(int sig)
 {

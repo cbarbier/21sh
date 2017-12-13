@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/20 11:03:54 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/12/11 21:48:22 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/12/14 00:36:18 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ int				next_loop(t_21sh *e, char *str, int (*f)(t_21sh *))
 	int			ret;
 
 	e->beg_sel = -2;
+	ret = 0;
 	ret = refresh_line(e, e->line);
 	reset_terminal(e);
 	if (str)

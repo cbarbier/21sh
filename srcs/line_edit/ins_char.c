@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/20 11:03:54 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/12/13 22:15:59 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/12/14 00:31:02 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static int		make_room(t_21sh *e, t_list *l)
 	int			y;
 	t_input		*in;
 
-	if (e->ln > e->li * e->co)
+	if (e->curs.sx + e->ln + 1 >= e->li * e->co)
 	{
 		ft_fprintf(e->ttyfd, "command line way too big\n");
 		return (-1);
@@ -29,8 +29,8 @@ static int		make_room(t_21sh *e, t_list *l)
 	n = 0;
 	while (n <= e->ln)
 	{
-		//ft_fprintf(e->ttyfd, "TEST n %d / %d ", n, e->ln);
-		//ft_fprintf(e->ttyfd, "set cursor %d : %d\n", i, y);
+		ft_fprintf(e->ttyfd, "TEST n %d / %d ", n, e->ln);
+		ft_fprintf(e->ttyfd, "set cursor %d : %d\n", i, y);
 		if (l)
 		{
 		in = (t_input *)l->content;
@@ -45,12 +45,12 @@ static int		make_room(t_21sh *e, t_list *l)
 			e->curs.x = (!y ? e->curs.sx : 0) + i;
 			e->curs.y = e->curs.sy + y;
 		}
-		if (i++ == e->co || (in && in->c == '\n'))
+		if (i++  == e->co - (!y ? e->curs.sx : 0) || (in && in->c == '\n'))
 		{
 			y++;
 			if (e->curs.sy + y > e->li)
 			{
-				e->curs.sy--;
+				--e->curs.sy;
 				e->curs.y--;
 			}
 			i = 1;
