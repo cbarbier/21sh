@@ -6,11 +6,11 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/20 11:03:54 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/12/14 00:31:02 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/12/14 16:10:48 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "21sh.h"
+#include "z1sh.h"
 
 static int		make_room(t_21sh *e, t_list *l)
 {
@@ -33,9 +33,9 @@ static int		make_room(t_21sh *e, t_list *l)
 		ft_fprintf(e->ttyfd, "set cursor %d : %d\n", i, y);
 		if (l)
 		{
-		in = (t_input *)l->content;
-		in->x = (!y ? e->curs.sx : 0) + i;
-		in->y = y;
+			in = (t_input *)l->content;
+			in->x = (!y ? e->curs.sx : 0) + i;
+			in->y = y;
 		}
 		else
 			in = 0;
@@ -45,7 +45,7 @@ static int		make_room(t_21sh *e, t_list *l)
 			e->curs.x = (!y ? e->curs.sx : 0) + i;
 			e->curs.y = e->curs.sy + y;
 		}
-		if (i++  == e->co - (!y ? e->curs.sx : 0) || (in && in->c == '\n'))
+		if (i++ == e->co - (!y ? e->curs.sx : 0) || (in && in->c == '\n'))
 		{
 			y++;
 			if (e->curs.sy + y > e->li)

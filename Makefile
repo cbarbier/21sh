@@ -6,7 +6,7 @@
 #    By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/03/04 14:32:18 by cbarbier          #+#    #+#              #
-#    Updated: 2017/12/11 21:23:47 by cbarbier         ###   ########.fr        #
+#    Updated: 2017/12/14 16:59:48 by cbarbier         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@ LIB				= libft/libft.a
 TERMCAP			= -ltermcap
 CC				= gcc
 CFLAGS			= -Wall -Wextra -Werror -g
-HDR				= includes/21sh.h
+HDR				= includes/z1sh.h
 SRCS 			= srcs/main.c \
  				  srcs/core_21sh.c \
  				  srcs/init_21sh.c \

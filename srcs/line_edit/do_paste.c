@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "21sh.h"
+#include "z1sh.h"
 
 int				ft_lstjoinat(t_list **al, t_list *ll, int n)
 {

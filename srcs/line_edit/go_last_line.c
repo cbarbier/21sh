@@ -6,11 +6,11 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/20 11:03:54 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/12/13 22:07:10 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/12/14 15:55:07 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "21sh.h"
+#include "z1sh.h"
 
 static t_input		*get_cur(t_21sh *e, t_list *l, int n)
 {
@@ -28,14 +28,15 @@ static int			lst_last_line(t_21sh *e, t_list *l, int n)
 	t_input		*in;
 
 	i = 0;
-	if (!(cur = get_cur(e, l, n)) || !cur->y || (cur->x < e->curs.sx && cur->y == 1))
+	if (!(cur = get_cur(e, l, n)) || !cur->y
+			|| (cur->x < e->curs.sx && cur->y == 1))
 		return (-1);
 	ft_fprintf(e->ttyfd, "func last line pos i= %d cur ==================> [%d:%d]\n", e->n, cur ? cur->x : -1, cur ? cur->y : -1);
 	while (l && i < n)
 	{
 		in = (t_input *)l->content;
 		ft_fprintf(e->ttyfd, "i%d in [%d:%d] in->c %c\n", i, in->x, in->y, (in ? in->c : '0'));
-	   	if (in->y == cur->y - 1 && ((in->x == cur->x) || in->c == '\n'))
+		if (in->y == cur->y - 1 && ((in->x == cur->x) || in->c == '\n'))
 			break ;
 		if ((l = l->next))
 			i++;

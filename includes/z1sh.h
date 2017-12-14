@@ -1,23 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   21sh.h                                             :+:      :+:    :+:   */
+/*   Z1sh.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/06 14:12:45 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/12/13 23:22:07 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/12/14 17:56:14 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef  F21SH_H
-# define F21SH_H
+#ifndef Z1SH_H
+# define Z1SH_H
 # include "../libft/includes/libft.h"
 # include <curses.h>
 # include <termcap.h>
 # include <term.h>
 # include <termios.h>
-# include <signal.h>	  
+# include <signal.h>
 # include <math.h>
 # define DEBUG					1
 # define TRUE					1
@@ -43,9 +43,10 @@
 # define KEY_CODE_ALT_V			16
 # define KEY_CODE_ALT_S			17
 # define HIST_LEN				5
-# define MAX(A, B)	((A) > (B) ? (A) : (B)) 
-# define MIN(A, B)	((A) < (B) ? (A) : (B)) 
+# define MAX(A, B)	((A) > (B) ? (A) : (B))
+# define MIN(A, B)	((A) < (B) ? (A) : (B))
 # define PRMPT(S, N) ft_memcpy(e->prmpt, S, N)
+
 typedef struct	s_hist
 {
 	t_list		*line;
@@ -65,7 +66,7 @@ typedef struct	s_cursor
 	int		x;
 	int		y;
 }				t_cursor;
-struct	s_21sh;
+struct s_21sh;
 typedef struct	s_key_func
 {
 	int			k;
@@ -94,7 +95,7 @@ typedef struct	s_21sh
 	int				ln;
 	int				beg_sel;
 	int				end_sel;
-}					t_21sh;
+}				t_21sh;
 /*
 ** 	INIT FUNCTIONS
 */
@@ -127,7 +128,7 @@ int				putline(t_21sh *e, t_list *l);
 int				refresh_line(t_21sh *e, t_list *l);
 int				get_eol(t_21sh *e);
 int				myput(int c);
-void			resize_handler(int);
+void			resize_handler(int sig);
 int				get_cursor_xy(t_21sh *e, t_cursor *curs);
 int				print_line(char *line, int i, int len);
 int				curs_right(t_21sh *e);
