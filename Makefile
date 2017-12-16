@@ -21,6 +21,8 @@ SRCS 			= srcs/main.c \
  				  srcs/init_21sh.c \
  				  srcs/fr33.c \
  				  srcs/line_edit/wrapper.c \
+ 				  srcs/line_edit/set_prmpt.c \
+ 				  srcs/line_edit/refresh_line.c \
  				  srcs/line_edit/init_term.c \
  				  srcs/line_edit/key_is1.c \
  				  srcs/line_edit/key_is2.c \

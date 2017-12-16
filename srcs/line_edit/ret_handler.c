@@ -16,8 +16,7 @@ static int		to_history(t_21sh *e)
 {
 	t_list			*l;
 
-	l = e->line;
-	if (!l)
+	if (!(l = e->cmd))
 	{
 		ft_fprintf(e->ttyfd, "line empty =< not in history\n");
 		return (0);
@@ -50,15 +49,15 @@ static int		ret_handler_helper(t_21sh *e)
 {
 	int			i;
 
-	ft_lstpushback(&e->cmd, ft_lstcpy(e->line, sizeof(t_input)));
 	e->line = 0;
 	if (!(i = quoting(e->cmd)))
 	{
+		to_history(e);
+		e->cmd = 0;
 		ft_fprintf(2, "\nquoting OK => parsing && executing the command\n");
-		ft_memcpy(e->prmpt, "21sh$ \0", 7);
 		return (0);
 	}
-	PRMPT("dq> \0", 5);
+	set_prmpt(e, "dq> ");
 	ft_printf("\n");
 	return (1);
 }
@@ -66,7 +65,7 @@ static int		ret_handler_helper(t_21sh *e)
 int				ret_handler(t_21sh *e)
 {
 	ft_fprintf(e->ttyfd, "function ret handler\n");
-	to_history(e);
+	ft_lstpushback(&e->cmd, e->line);
 	go_end(e);
 	next_loop(e, 0, ret_handler_helper);
 	return (0);

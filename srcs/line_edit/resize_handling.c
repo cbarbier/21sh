@@ -12,12 +12,6 @@
 
 #include "z1sh.h"
 
-void				too_big_line(t_21sh *e)
-{
-	(void)e;
-	return ;
-}
-
 void				resize_handler(int sig)
 {
 	t_21sh		*e;
@@ -35,13 +29,13 @@ void				resize_handler(int sig)
 	}
 	e->co = tgetnum("co");
 	e->li = tgetnum("li");
-	ft_fprintf(e->ttyfd, "ater term cols: %d lines: %d\n", e->co, e->li);
+	ft_fprintf(e->ttyfd, "after term cols: %d lines: %d\n", e->co, e->li);
 	if (e->li < e->ln / e->co)
 	{
 		ft_fprintf(1, "Error: 21sh: terminal too tiny \n");
 		exit_21sh(e, 1);
 		return ;
 	}
-	PRMPT("21sh$ \0", 7);
+	set_prmpt(e, "21sh$ ");
 	next_loop(e, "Warning: refresh because of resizing\n", 0);
 }

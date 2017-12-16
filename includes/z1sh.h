@@ -45,7 +45,6 @@
 # define HIST_LEN				5
 # define MAX(A, B)	((A) > (B) ? (A) : (B))
 # define MIN(A, B)	((A) < (B) ? (A) : (B))
-# define PRMPT(S, N) ft_memcpy(e->prmpt, S, N)
 
 typedef struct	s_hist
 {
@@ -76,7 +75,7 @@ typedef struct	s_key_func
 typedef struct	s_21sh
 {
 	struct termios	term;
-	char			prmpt[9];
+	char			*prmpt;
 	char			buff[MAX_KEY_STRING_LENGTH + 1];
 	char			*str;
 	t_list			*cmd;
@@ -119,6 +118,8 @@ char			*ft_lsttostr(t_list *l);
 /*
 ** 	EDIT LINE FUNCTIONS
 */
+int				set_prmpt(t_21sh *e, char *str);
+int				print_prmpt(t_21sh *e);
 t_input			*get_input(t_list *l, int n);
 int				wrapper(int (*f)(t_21sh *e), t_21sh *e);
 int				key_apply_func(t_21sh *e);

@@ -45,7 +45,7 @@ int			init_loop(t_21sh *e)
 	ft_bzero(&e->curs, sizeof(t_cursor));
 	ft_lstdel(&e->line, del_line);
 	e->ln = 0;
-	ft_printf("%s", e->prmpt);
+	print_prmpt(e);
 	if (get_cursor_xy(e, &e->curs))
 		return (ft_fprintf(2, "Error: can't get cursor\n"));
 	e->co = tgetnum("co");
@@ -73,7 +73,7 @@ int			init_21sh(t_21sh *e, int argc, char **argv)
 	get_e(e);
 	if (!(e->ttyfd = open(argv[argc - 1], O_WRONLY | O_NONBLOCK)))
 		return (ft_fprintf(2, "Error: can't open tty\n"));
-	PRMPT("21sh$ \0", 7);
+	set_prmpt(e, "21sh$ ");
 	e->run = 1;
 	ft_fprintf(e->ttyfd, "### WELCOME 21SH ###\n");
 	init_loop(e);
