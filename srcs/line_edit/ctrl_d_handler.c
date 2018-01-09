@@ -6,11 +6,19 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/20 11:03:54 by cbarbier          #+#    #+#             */
-/*   Updated: 2018/01/09 14:14:44 by cbarbier         ###   ########.fr       */
+/*   Updated: 2018/01/09 19:49:50 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "z1sh.h"
+
+int				ctrl_c_handler(t_21sh *e)
+{
+	set_prmpt(e, "\n21sh$ ");
+	next_loop(e, 0, 0);
+	set_prmpt(e, "21sh$ ");
+	return (0);
+}
 
 int				ctrl_d_handler(t_21sh *e)
 {

@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/06 14:12:45 by cbarbier          #+#    #+#             */
-/*   Updated: 2018/01/09 14:03:58 by cbarbier         ###   ########.fr       */
+/*   Updated: 2018/01/09 19:45:39 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 # define TRUE					1
 # define FALSE					0
 # define MAX_KEY_STRING_LENGTH	9
-# define NB_KEYS				19
+# define NB_KEYS				20
 # define KEY_CODE_CTRL_D		0
 # define KEY_CODE_HOME			1
 # define KEY_CODE_END			2
@@ -43,6 +43,7 @@
 # define KEY_CODE_ALT_V			16
 # define KEY_CODE_ALT_S			17
 # define KEY_CODE_CTRL_U		18
+# define KEY_CODE_CTRL_C		19
 # define HIST_LEN				5
 # define MAX(A, B)	((A) > (B) ? (A) : (B))
 # define MIN(A, B)	((A) < (B) ? (A) : (B))
@@ -143,6 +144,7 @@ int				go_next_word(t_21sh *e);
 int				go_last_word(t_21sh *e);
 int				go_next_line(t_21sh *e);
 int				go_last_line(t_21sh *e);
+int				ctrl_c_handler(t_21sh *e);
 int				ctrl_d_handler(t_21sh *e);
 int				ctrl_u_handler(t_21sh *e);
 int				ret_handler(t_21sh *e);
@@ -161,6 +163,7 @@ int				select_mode(t_21sh *e);
 ** 	TEST KEY FUNCTIONS
 */
 int				key_is_ret(char *buff);
+int				key_is_ctrl_c(char *buff);
 int				key_is_ctrl_d(char *buff);
 int				key_is_ctrl_u(char *buff);
 int				key_is_tab(char *buff);

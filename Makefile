@@ -6,7 +6,7 @@
 #    By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/03/04 14:32:18 by cbarbier          #+#    #+#              #
-#    Updated: 2017/12/14 16:59:48 by cbarbier         ###   ########.fr        #
+#    Updated: 2018/01/09 19:29:20 by cbarbier         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -49,7 +49,7 @@ SRCS 			= srcs/main.c \
 				  srcs/line_edit/do_copy.c \
 				  srcs/line_edit/do_paste.c \
 				  srcs/line_edit/selection.c \
-				  srcs/line_edit/resize_handling.c \
+				  srcs/line_edit/sig_handling.c \
 				  srcs/parser/tools.c \
 				  srcs/parser/quoting.c
 

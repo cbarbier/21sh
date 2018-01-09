@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/19 09:33:24 by cbarbier          #+#    #+#             */
-/*   Updated: 2018/01/09 18:11:03 by cbarbier         ###   ########.fr       */
+/*   Updated: 2018/01/09 18:59:34 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,8 @@ int			reset_terminal(t_21sh *e)
 	if (tcgetattr(0, &e->term) == -1)
 		return (-1);
 	e->term.c_lflag = (ICANON | ECHO);
-	if (tcgetattr(0, &e->term) == -1)
+	if (tcsetattr(0, TCSANOW, &e->term) == -1)
 		return (-1);
-//	tputs(tgetstr("ei", 0), 1, myput);
 	return (0);
 }
 

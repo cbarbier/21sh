@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/19 09:33:24 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/12/12 01:11:40 by cbarbier         ###   ########.fr       */
+/*   Updated: 2018/01/09 18:48:02 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,5 @@ int			init_21sh(t_21sh *e, int argc, char **argv)
 	set_prmpt(e, "21sh$ ");
 	e->run = 1;
 	ft_fprintf(e->ttyfd, "### WELCOME 21SH ###\n");
-	init_loop(e);
-	return (0);
+	return (init_loop(e));
 }

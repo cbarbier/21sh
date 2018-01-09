@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/19 17:33:55 by cbarbier          #+#    #+#             */
-/*   Updated: 2018/01/09 14:12:34 by cbarbier         ###   ########.fr       */
+/*   Updated: 2018/01/09 19:43:20 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ t_key_func		*key_tab(void)
 		{KEY_CODE_ALT_C, &key_is_alt_c, &do_copy},
 		{KEY_CODE_ALT_V, &key_is_alt_v, &do_paste},
 		{KEY_CODE_ALT_S, &key_is_alt_s, &select_mode},
+		{KEY_CODE_CTRL_C, &key_is_ctrl_c, &ctrl_c_handler},
 		{KEY_CODE_CTRL_U, &key_is_ctrl_u, &ctrl_u_handler}
 	};
 
