@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/20 11:03:54 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/12/14 16:10:48 by cbarbier         ###   ########.fr       */
+/*   Updated: 2018/01/09 11:24:15 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 static int	make_room_helper(t_21sh *e, t_cursor *curs, t_input *in, int n)
 {
-
 	if (n == e->n)
 	{
 		ft_fprintf(e->ttyfd, "set cursor %d : %d\n", curs->x, curs->y);
@@ -65,7 +64,7 @@ static int	make_room(t_21sh *e, t_list *l)
 	return (0);
 }
 
-int		refresh_line(t_21sh *e, t_list *l)
+int			refresh_line(t_21sh *e, t_list *l)
 {
 	e->ln = ft_lstlen(e->line);
 	ft_fprintf(e->ttyfd, "refresh line DBUG e->n %d beg=%d & end=%d\n", e->n,
@@ -79,7 +78,7 @@ int		refresh_line(t_21sh *e, t_list *l)
 	return (0);
 }
 
-int		putline(t_21sh *e, t_list *l)
+int			putline(t_21sh *e, t_list *l)
 {
 	t_input			*in;
 	int				i;

@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/21 16:52:15 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/12/05 18:14:30 by cbarbier         ###   ########.fr       */
+/*   Updated: 2018/01/09 16:15:06 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ static int			fr33(t_21sh *e)
 	int			i;
 
 	ft_lstdel(&e->line, del_line);
+	ft_lstdel(&e->cmd, del_line);
 	ft_lstdel(&e->save, del_line);
 	i = 0;
 	while (i < HIST_LEN)
