@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/06 14:12:45 by cbarbier          #+#    #+#             */
-/*   Updated: 2018/01/09 19:45:39 by cbarbier         ###   ########.fr       */
+/*   Updated: 2018/01/10 10:37:07 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,7 @@ typedef struct	s_21sh
 ** 	INIT FUNCTIONS
 */
 int				init_termcaps(t_21sh *e);
+int				read_stdin(t_21sh *e);
 int				reset_terminal(t_21sh *e);
 int				init_21sh(t_21sh *e, int argc, char **argv);
 int				init_loop(t_21sh *e);

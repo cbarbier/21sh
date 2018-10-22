@@ -6,11 +6,29 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/19 09:33:24 by cbarbier          #+#    #+#             */
-/*   Updated: 2018/01/09 18:59:34 by cbarbier         ###   ########.fr       */
+/*   Updated: 2018/01/19 10:31:47 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "z1sh.h"
+
+int			read_stdin(t_21sh *e)
+{
+	t_list		*new;
+	t_input		in;
+
+	ft_bzero(&in, sizeof(t_input));
+	in.c = 0;
+	while (read(0, &in.c, 1) > 0)
+	{
+		if (!(new = ft_lstnew(&in, sizeof(t_input))))
+			return (-1);
+		ft_lstadd(&e->cmd, new);
+	}
+	if (!in.c)
+		return (-1);
+	return (0);
+}
 
 int			reset_terminal(t_21sh *e)
 {

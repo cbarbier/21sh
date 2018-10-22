@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/20 11:03:54 by cbarbier          #+#    #+#             */
-/*   Updated: 2018/01/09 15:08:15 by cbarbier         ###   ########.fr       */
+/*   Updated: 2018/01/10 10:30:26 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ static int		to_history(t_21sh *e)
 	if (!(l = e->cmd))
 	{
 		ft_fprintf(e->ttyfd, "line empty => not in history\n");
+		e->line = 0;
 		return (0);
 	}
 	if (e->hist[HIST_LEN - 1])
@@ -33,9 +34,11 @@ int				next_loop(t_21sh *e, char *str, int (*f)(t_21sh *))
 {
 	int			ret;
 
+	go_end(e);
 	e->beg_sel = -2;
 	ret = 0;
 	ret = refresh_line(e, e->line);
+	e->line = 0;
 	reset_terminal(e);
 	if (str)
 		ft_fprintf(2, "\n%s\n", str);
@@ -54,10 +57,12 @@ static int		ret_handler_helper(t_21sh *e)
 	{
 		to_history(e);
 		e->cmd = 0;
+		set_prmpt(e, "21sh$ ");
 		ft_fprintf(2, "\nquoting OK => parsing && executing the command\n");
 		return (0);
 	}
-	set_prmpt(e, "dq> ");
+	else
+		set_prmpt(e, "dq> ");
 	ft_printf("\n");
 	return (1);
 }
@@ -66,7 +71,6 @@ int				ret_handler(t_21sh *e)
 {
 	ft_fprintf(e->ttyfd, "function ret handler\n");
 	ft_lstpushback(&e->cmd, e->line);
-	go_end(e);
 	next_loop(e, 0, ret_handler_helper);
 	return (0);
 }

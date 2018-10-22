@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/05 17:41:37 by cbarbier          #+#    #+#             */
-/*   Updated: 2018/01/09 19:42:36 by cbarbier         ###   ########.fr       */
+/*   Updated: 2018/01/19 10:52:17 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,5 +37,5 @@ void				resize_handler(int sig)
 		return ;
 	}
 	set_prmpt(e, "21sh$ ");
-	next_loop(e, "Warning: refresh because of resizing\n", 0);
+	next_loop(e, "/!\\ 21sh: warning: refresh because of resizing", 0);
 }
